@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #FAF7F2;
+  --foreground: #1C0A00;
+  --font-sans: "Cormorant Garamond", Georgia, serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-brand-primary text-white px-8 py-3 text-sm tracking-widest uppercase font-medium hover:bg-brand-brown transition-colors duration-300 inline-block;
+  }
+  .btn-secondary {
+    @apply border border-brand-primary text-brand-primary px-8 py-3 text-sm tracking-widest uppercase font-medium hover:bg-brand-primary hover:text-white transition-colors duration-300 inline-block;
+  }
+  .btn-gold {
+    @apply bg-brand-secondary text-white px-8 py-3 text-sm tracking-widest uppercase font-medium hover:bg-amber-700 transition-colors duration-300 inline-block;
+  }
+  .section-title {
+    @apply text-3xl md:text-4xl font-light tracking-wide text-brand-brown mb-2;
+  }
+  .section-subtitle {
+    @apply text-brand-muted text-sm tracking-widest uppercase mb-8;
+  }
+}
