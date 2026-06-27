@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Reveal, { RevealItem } from "@/components/ui/Reveal";
 
 function KidsIcon() {
   return (
@@ -54,17 +55,17 @@ export default function WardrobeServicesPreview() {
   return (
     <section className="bg-white py-16 md:py-20 px-4">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
+        <Reveal className="text-center mb-12">
           <p className="section-subtitle">Personalised Fashion</p>
           <h2 className="section-title">Wardrobe Services</h2>
           <p className="text-brand-muted text-sm max-w-xl mx-auto">
             Too busy to shop? Let AKARANDA curate and deliver a complete wardrobe to your door.
           </p>
-        </div>
+        </Reveal>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <Reveal stagger staggerGap={0.12} className="grid md:grid-cols-2 gap-6">
           {/* Kids */}
-          <div className="relative overflow-hidden bg-brand-cream border border-brand-sand p-10 group hover:shadow-lg transition-shadow">
+          <RevealItem className="relative overflow-hidden bg-brand-cream border border-brand-sand p-10 group hover:shadow-xl transition-shadow duration-500">
             <div className="mb-6"><KidsIcon /></div>
             <p className="text-brand-secondary text-xs tracking-[0.2em] uppercase mb-2">For Children</p>
             <h3 className="text-2xl font-light text-brand-brown mb-4">Kiddies Wardrobe Change</h3>
@@ -80,10 +81,10 @@ export default function WardrobeServicesPreview() {
               ))}
             </ul>
             <Link href="/wardrobe-services/kiddies" className="btn-primary">Start Now</Link>
-          </div>
+          </RevealItem>
 
           {/* Chics */}
-          <div className="relative overflow-hidden bg-brand-brown p-10 group hover:shadow-lg transition-shadow">
+          <RevealItem className="relative overflow-hidden bg-brand-brown p-10 group hover:shadow-xl transition-shadow duration-500">
             <div className="mb-6"><WomanIcon /></div>
             <p className="text-brand-secondary text-xs tracking-[0.2em] uppercase mb-2">For Women</p>
             <h3 className="text-2xl font-light text-white mb-4">Chic Wardrobe Refresh</h3>
@@ -99,19 +100,19 @@ export default function WardrobeServicesPreview() {
               ))}
             </ul>
             <Link href="/wardrobe-services/chics" className="btn-gold">Start Now</Link>
-          </div>
-        </div>
+          </RevealItem>
+        </Reveal>
 
         {/* Delivery Promise */}
-        <div className="mt-10 grid grid-cols-3 gap-4 border-t border-brand-sand pt-10">
+        <Reveal stagger staggerGap={0.1} className="mt-10 grid grid-cols-3 gap-4 border-t border-brand-sand pt-10">
           {deliveryItems.map((d) => (
-            <div key={d.label} className="text-center">
+            <RevealItem key={d.label} className="text-center">
               <div className="flex justify-center mb-2">{d.icon}</div>
               <p className="text-brand-primary font-medium text-sm">{d.time}</p>
               <p className="text-brand-muted text-xs tracking-widest uppercase">{d.label} Delivery</p>
-            </div>
+            </RevealItem>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   );

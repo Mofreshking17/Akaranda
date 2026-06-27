@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -31,10 +31,12 @@ export default function Sidebar({ role, fullName, email }: { role: AdminRole; fu
   const items = NAV.filter((item) => allowed.has(item.module));
 
   return (
-    <aside className="w-64 h-screen flex flex-col border-r border-neutral-200 bg-white">
-      <div className="px-5 py-5 border-b border-neutral-100">
-        <p className="font-semibold tracking-tight text-neutral-900">AKARANDA</p>
-        <p className="text-xs text-neutral-400 mt-0.5">Admin Dashboard</p>
+    <aside className="w-64 h-screen flex flex-col border-r border-sidebar-border bg-sidebar">
+      <div className="px-5 py-5 border-b border-sidebar-border">
+        <p className="font-display text-2xl font-semibold tracking-tight text-foreground leading-none">
+          AKARANDA<span className="text-primary">.</span>
+        </p>
+        <p className="text-[11px] tracking-[0.2em] uppercase text-muted-foreground mt-1.5">Admin Dashboard</p>
       </div>
 
       <nav className="flex-1 overflow-y-auto py-3 px-2 space-y-0.5">
@@ -44,21 +46,23 @@ export default function Sidebar({ role, fullName, email }: { role: AdminRole; fu
             <Link
               key={href}
               href={href}
-              className={`flex items-center gap-2.5 px-3 py-2 rounded-md text-sm transition-colors ${
-                active ? "bg-neutral-900 text-white" : "text-neutral-600 hover:bg-neutral-100"
+              className={`group relative flex items-center gap-2.5 px-3 py-2 rounded-md text-sm transition-all duration-200 ${
+                active
+                  ? "bg-primary text-primary-foreground shadow-sm"
+                  : "text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
               }`}
             >
-              <Icon className="w-4 h-4" />
+              <Icon className={`w-4 h-4 transition-transform duration-200 ${active ? "" : "group-hover:scale-110"}`} />
               {label}
             </Link>
           );
         })}
       </nav>
 
-      <div className="px-4 py-4 border-t border-neutral-100">
-        <p className="text-sm font-medium text-neutral-800 truncate">{fullName}</p>
-        <p className="text-xs text-neutral-400 truncate">{email}</p>
-        <p className="text-[10px] uppercase tracking-wide text-neutral-400 mt-1">{role.replace("_", " ")}</p>
+      <div className="px-4 py-4 border-t border-border">
+        <p className="text-sm font-medium text-foreground truncate">{fullName}</p>
+        <p className="text-xs text-muted-foreground truncate">{email}</p>
+        <p className="text-[10px] uppercase tracking-wide text-muted-foreground mt-1">{role.replace("_", " ")}</p>
       </div>
     </aside>
   );

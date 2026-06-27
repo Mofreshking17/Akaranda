@@ -14,6 +14,7 @@ export interface Product {
   category: string;
   collection: Collection;
   image: string;
+  images: string[];
   sizes: string[];
   description: string;
 }
@@ -48,7 +49,8 @@ function deriveTag(row: DbProductRow): string | undefined {
 
 export function mapDbProduct(row: DbProductRow): Product {
   const cat = Array.isArray(row.categories) ? row.categories[0] : row.categories;
-  const images = (row.product_images ?? []).slice().sort((a, b) => a.sort_order - b.sort_order);
+  const sorted = (row.product_images ?? []).slice().sort((a, b) => a.sort_order - b.sort_order);
+  const urls = sorted.map((i) => i.url);
   return {
     id: row.id,
     slug: row.slug,
@@ -58,7 +60,8 @@ export function mapDbProduct(row: DbProductRow): Product {
     tag: deriveTag(row),
     category: cat?.name ?? "AKARANDA",
     collection: row.collection,
-    image: images[0]?.url ?? PLACEHOLDER_IMAGE,
+    image: urls[0] ?? PLACEHOLDER_IMAGE,
+    images: urls.length > 0 ? urls : [PLACEHOLDER_IMAGE],
     sizes: row.available_sizes ?? [],
     description: row.description ?? row.short_description ?? "",
   };

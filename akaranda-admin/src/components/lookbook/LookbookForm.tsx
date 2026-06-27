@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
@@ -40,10 +40,10 @@ export default function LookbookForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 max-w-3xl">
-      <section className="bg-white border border-neutral-200 rounded-lg p-6 space-y-4">
+      <section className="bg-card border border-border rounded-lg p-6 space-y-4">
         <div>
           <Label>Collection Title</Label>
-          <Input value={title} onChange={(e) => setTitle(e.target.value)} required placeholder="AKARANDA Kids — Summer 2025" />
+          <Input value={title} onChange={(e) => setTitle(e.target.value)} required placeholder="AKARANDA Kids â€” Summer 2025" />
         </div>
         <div>
           <Label>Collection Group</Label>
@@ -63,17 +63,17 @@ export default function LookbookForm({
         </div>
       </section>
 
-      <section className="bg-white border border-neutral-200 rounded-lg p-6 space-y-4">
-        <h3 className="font-medium text-neutral-900">Gallery Images & Videos</h3>
+      <section className="bg-card border border-border rounded-lg p-6 space-y-4">
+        <h3 className="font-medium text-foreground">Gallery Images & Videos</h3>
         <MediaPicker selected={images} onChange={setImages} folder="lookbook" />
       </section>
 
-      <section className="bg-white border border-neutral-200 rounded-lg p-6 grid grid-cols-2 gap-4">
-        <div className="flex items-center justify-between border border-neutral-200 rounded-md px-4 py-3">
+      <section className="bg-card border border-border rounded-lg p-6 grid grid-cols-2 gap-4">
+        <div className="flex items-center justify-between border border-border rounded-md px-4 py-3">
           <Label>Feature Collection</Label>
           <Switch checked={featured} onCheckedChange={setFeatured} />
         </div>
-        <div className="flex items-center justify-between border border-neutral-200 rounded-md px-4 py-3">
+        <div className="flex items-center justify-between border border-border rounded-md px-4 py-3">
           <Label>Publish Now</Label>
           <Switch checked={published} onCheckedChange={setPublished} />
         </div>

@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { requireModule } from "@/lib/guard";
 import { createClient } from "@/lib/supabase/server";
 import Topbar from "@/components/layout/Topbar";
@@ -24,7 +24,7 @@ export default async function LookbookPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {(collections ?? []).map((c) => <LookbookCard key={c.id} collection={c} />)}
           {(collections ?? []).length === 0 && (
-            <p className="col-span-full text-center text-neutral-400 py-16">No lookbook collections yet.</p>
+            <p className="col-span-full text-center text-muted-foreground py-16">No lookbook collections yet.</p>
           )}
         </div>
       </div>

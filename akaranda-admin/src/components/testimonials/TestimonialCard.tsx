@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -24,30 +24,30 @@ export default function TestimonialCard({ testimonial }: { testimonial: Testimon
   }
 
   return (
-    <div className="bg-white border border-neutral-200 rounded-lg p-5 space-y-3">
+    <div className="bg-card border border-border rounded-lg p-5 space-y-3">
       <div className="flex items-center gap-3">
         {testimonial.customer_photo ? (
           <div className="relative w-10 h-10 rounded-full overflow-hidden">
             <Image src={testimonial.customer_photo} alt={testimonial.customer_name} fill className="object-cover" />
           </div>
         ) : (
-          <div className="w-10 h-10 rounded-full bg-neutral-200 flex items-center justify-center text-sm font-medium text-neutral-600">
+          <div className="w-10 h-10 rounded-full bg-neutral-200 flex items-center justify-center text-sm font-medium text-muted-foreground">
             {testimonial.customer_name.slice(0, 2).toUpperCase()}
           </div>
         )}
         <div>
-          <p className="font-medium text-neutral-900 text-sm">{testimonial.customer_name}</p>
-          <p className="text-xs text-neutral-400">{testimonial.location}</p>
+          <p className="font-medium text-foreground text-sm">{testimonial.customer_name}</p>
+          <p className="text-xs text-muted-foreground">{testimonial.location}</p>
         </div>
       </div>
-      <p className="text-sm text-neutral-600 line-clamp-3">{testimonial.testimonial_text}</p>
+      <p className="text-sm text-muted-foreground line-clamp-3">{testimonial.testimonial_text}</p>
 
       <div className="flex items-center justify-between text-sm">
-        <span className="text-neutral-500">Homepage</span>
+        <span className="text-muted-foreground">Homepage</span>
         <Switch checked={testimonial.show_on_homepage} disabled={busy} onCheckedChange={(v) => run(() => toggleTestimonialHomepage(testimonial.id, v))} />
       </div>
       <div className="flex items-center justify-between text-sm">
-        <span className="text-neutral-500">Featured</span>
+        <span className="text-muted-foreground">Featured</span>
         <Switch checked={testimonial.is_featured} disabled={busy} onCheckedChange={(v) => run(() => toggleTestimonialFeatured(testimonial.id, v))} />
       </div>
 

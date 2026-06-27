@@ -1,4 +1,4 @@
-import { requireModule } from "@/lib/guard";
+﻿import { requireModule } from "@/lib/guard";
 import { createClient } from "@/lib/supabase/server";
 import Topbar from "@/components/layout/Topbar";
 import MediaLibraryGrid from "@/components/media/MediaLibraryGrid";
@@ -25,13 +25,13 @@ export default async function MediaPage({
       <Topbar title="Media Library" />
       <div className="p-6 space-y-4">
         <div className="flex items-center justify-between">
-          <div className="flex gap-1 bg-white border border-neutral-200 rounded-md p-1">
+          <div className="flex gap-1 bg-card border border-border rounded-md p-1">
             {FOLDERS.map((f) => (
               <Link
                 key={f}
                 href={`/media?folder=${f}`}
                 className={`px-3 py-1.5 text-sm rounded-md capitalize transition-colors ${
-                  folder === f ? "bg-neutral-900 text-white" : "text-neutral-600 hover:bg-neutral-100"
+                  folder === f ? "bg-primary text-white" : "text-muted-foreground hover:bg-muted"
                 }`}
               >
                 {f}
@@ -51,7 +51,7 @@ export default async function MediaPage({
           />
         </form>
 
-        <div className="bg-white border border-neutral-200 rounded-lg p-5">
+        <div className="bg-card border border-border rounded-lg p-5">
           <MediaLibraryGrid files={files ?? []} />
         </div>
       </div>

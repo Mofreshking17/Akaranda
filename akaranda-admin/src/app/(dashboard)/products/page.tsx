@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { requireModule } from "@/lib/guard";
 import { createClient } from "@/lib/supabase/server";
 import Topbar from "@/components/layout/Topbar";
@@ -40,7 +40,7 @@ export default async function ProductsPage({
           </Link>
         </div>
 
-        <div className="bg-white border border-neutral-200 rounded-lg overflow-hidden">
+        <div className="bg-card border border-border rounded-lg overflow-hidden">
           <ProductsTable products={products ?? []} />
         </div>
       </div>

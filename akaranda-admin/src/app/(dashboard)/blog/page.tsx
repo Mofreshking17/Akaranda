@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { requireModule } from "@/lib/guard";
 import { createClient } from "@/lib/supabase/server";
 import Topbar from "@/components/layout/Topbar";
@@ -20,7 +20,7 @@ export default async function BlogPage() {
             <Button><Plus className="w-4 h-4 mr-1" /> New Post</Button>
           </Link>
         </div>
-        <div className="bg-white border border-neutral-200 rounded-lg overflow-hidden">
+        <div className="bg-card border border-border rounded-lg overflow-hidden">
           <BlogPostsTable posts={posts ?? []} />
         </div>
       </div>

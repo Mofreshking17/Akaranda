@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
@@ -19,7 +20,10 @@ export default function WardrobeStatusSelect({ requestId, status }: { requestId:
     setBusy(true);
     try {
       await updateWardrobeStatus(requestId, value as WardrobeStatus);
+      toast.success(`Request moved to ${value.replace(/_/g, " ")}`);
       router.refresh();
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Could not update request");
     } finally {
       setBusy(false);
     }

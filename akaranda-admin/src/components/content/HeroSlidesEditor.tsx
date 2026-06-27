@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
@@ -39,8 +39,8 @@ export default function HeroSlidesEditor({ slides }: { slides: Record<string, Sl
       {keys.map((key, i) => {
         const slide = data[key] ?? { image: "", tag: "", headline: "", sub: "" };
         return (
-          <section key={key} className="bg-white border border-neutral-200 rounded-lg p-6 space-y-4">
-            <h3 className="font-medium text-neutral-900">Slide {i + 1}</h3>
+          <section key={key} className="bg-card border border-border rounded-lg p-6 space-y-4">
+            <h3 className="font-medium text-foreground">Slide {i + 1}</h3>
             <div>
               <Label>Slide Image</Label>
               <MediaPicker selected={slide.image ? [slide.image] : []} onChange={(urls) => update(key, "image", urls.slice(-1)[0] ?? "")} folder="hero" />

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -11,6 +11,7 @@ import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal, Star } from "lucide-react";
+import { toast } from "sonner";
 import { formatNaira } from "@/lib/utils";
 import { archiveProduct, deleteProduct, duplicateProduct, toggleFeatureProduct } from "@/app/(dashboard)/products/actions";
 import type { Product } from "@/lib/types/database";
@@ -25,11 +26,14 @@ export default function ProductsTable({ products }: { products: Product[] }) {
   const router = useRouter();
   const [busyId, setBusyId] = useState<string | null>(null);
 
-  async function run(id: string, fn: () => Promise<void>) {
+  async function run(id: string, fn: () => Promise<void>, successMsg: string) {
     setBusyId(id);
     try {
       await fn();
+      toast.success(successMsg);
       router.refresh();
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Something went wrong");
     } finally {
       setBusyId(null);
     }
@@ -52,15 +56,15 @@ export default function ProductsTable({ products }: { products: Product[] }) {
         {products.map((p) => (
           <TableRow key={p.id}>
             <TableCell>
-              <Link href={`/products/${p.id}`} className="font-medium text-neutral-900 hover:underline">
+              <Link href={`/products/${p.id}`} className="font-medium text-foreground hover:underline">
                 {p.name}
               </Link>
-              <p className="text-xs text-neutral-400">{p.sku ?? "No SKU"}</p>
+              <p className="text-xs text-muted-foreground">{p.sku ?? "No SKU"}</p>
             </TableCell>
             <TableCell className="capitalize">{p.collection}</TableCell>
             <TableCell>
               {formatNaira(p.sale_price ?? p.price)}
-              {p.sale_price && <span className="text-xs text-neutral-400 line-through ml-1">{formatNaira(p.price)}</span>}
+              {p.sale_price && <span className="text-xs text-muted-foreground line-through ml-1">{formatNaira(p.price)}</span>}
             </TableCell>
             <TableCell className={p.stock_quantity < 5 ? "text-red-600 font-medium" : ""}>{p.stock_quantity}</TableCell>
             <TableCell><Badge variant={STATUS_VARIANT[p.status]}>{p.status}</Badge></TableCell>
@@ -76,24 +80,24 @@ export default function ProductsTable({ products }: { products: Product[] }) {
               <DropdownMenu>
                 <DropdownMenuTrigger
                   disabled={busyId === p.id}
-                  className="inline-flex items-center justify-center w-8 h-8 rounded-md hover:bg-neutral-100 disabled:opacity-50"
+                  className="inline-flex items-center justify-center w-8 h-8 rounded-md hover:bg-muted disabled:opacity-50"
                 >
                   <MoreHorizontal className="w-4 h-4" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem onClick={() => router.push(`/products/${p.id}`)}>Edit</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => run(p.id, () => duplicateProduct(p.id))}>Duplicate</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => run(p.id, () => toggleFeatureProduct(p.id, !p.is_featured))}>
+                  <DropdownMenuItem onClick={() => run(p.id, () => duplicateProduct(p.id), "Product duplicated")}>Duplicate</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => run(p.id, () => toggleFeatureProduct(p.id, !p.is_featured), p.is_featured ? "Removed from featured" : "Product featured")}>
                     {p.is_featured ? "Unfeature" : "Feature"}
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => run(p.id, () => archiveProduct(p.id, p.status !== "archived"))}>
+                  <DropdownMenuItem onClick={() => run(p.id, () => archiveProduct(p.id, p.status !== "archived"), p.status === "archived" ? "Product restored" : "Product archived")}>
                     {p.status === "archived" ? "Unarchive" : "Archive"}
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     className="text-red-600"
                     onClick={() => {
                       if (confirm(`Delete "${p.name}"? This cannot be undone.`)) {
-                        run(p.id, () => deleteProduct(p.id));
+                        run(p.id, () => deleteProduct(p.id), "Product deleted");
                       }
                     }}
                   >
@@ -106,7 +110,7 @@ export default function ProductsTable({ products }: { products: Product[] }) {
         ))}
         {products.length === 0 && (
           <TableRow>
-            <TableCell colSpan={7} className="text-center text-neutral-400 py-10">
+            <TableCell colSpan={7} className="text-center text-muted-foreground py-10">
               No products yet.
             </TableCell>
           </TableRow>

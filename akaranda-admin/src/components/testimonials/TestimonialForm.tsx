@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
@@ -53,7 +53,7 @@ export default function TestimonialForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
-      <section className="bg-white border border-neutral-200 rounded-lg p-6 space-y-4">
+      <section className="bg-card border border-border rounded-lg p-6 space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <div>
             <Label>Customer Name</Label>
@@ -69,7 +69,7 @@ export default function TestimonialForm({
           <MediaPicker selected={photo} onChange={(urls) => setPhoto(urls.slice(-1))} folder="testimonials" />
         </div>
         <div>
-          <Label>Rating (1–5)</Label>
+          <Label>Rating (1â€“5)</Label>
           <Input type="number" min={1} max={5} value={rating} onChange={(e) => setRating(Number(e.target.value))} />
         </div>
         <div>
@@ -82,12 +82,12 @@ export default function TestimonialForm({
         </div>
       </section>
 
-      <section className="bg-white border border-neutral-200 rounded-lg p-6 grid grid-cols-2 gap-4">
-        <div className="flex items-center justify-between border border-neutral-200 rounded-md px-4 py-3">
+      <section className="bg-card border border-border rounded-lg p-6 grid grid-cols-2 gap-4">
+        <div className="flex items-center justify-between border border-border rounded-md px-4 py-3">
           <Label>Featured</Label>
           <Switch checked={featured} onCheckedChange={setFeatured} />
         </div>
-        <div className="flex items-center justify-between border border-neutral-200 rounded-md px-4 py-3">
+        <div className="flex items-center justify-between border border-border rounded-md px-4 py-3">
           <Label>Show on Homepage</Label>
           <Switch checked={showOnHomepage} onCheckedChange={setShowOnHomepage} />
         </div>

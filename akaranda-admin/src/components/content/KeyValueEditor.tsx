@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
@@ -36,8 +36,8 @@ export default function KeyValueEditor({
   }
 
   return (
-    <section className="bg-white border border-neutral-200 rounded-lg p-6 space-y-4">
-      <h3 className="font-medium text-neutral-900">{title}</h3>
+    <section className="bg-card border border-border rounded-lg p-6 space-y-4">
+      <h3 className="font-medium text-foreground">{title}</h3>
       {fields.map((f) => (
         <div key={f.name}>
           <Label>{f.label}</Label>
@@ -49,7 +49,7 @@ export default function KeyValueEditor({
         </div>
       ))}
       <Button size="sm" onClick={save} disabled={saving}>
-        {saving ? "Saving..." : saved ? "Saved ✓" : "Save Changes"}
+        {saving ? "Saving..." : saved ? "Saved âœ“" : "Save Changes"}
       </Button>
     </section>
   );

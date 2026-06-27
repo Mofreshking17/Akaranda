@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { requireModule } from "@/lib/guard";
 import { createClient } from "@/lib/supabase/server";
 import Topbar from "@/components/layout/Topbar";
@@ -31,7 +31,7 @@ export default async function CustomersPage({
           />
         </form>
 
-        <div className="bg-white border border-neutral-200 rounded-lg overflow-hidden">
+        <div className="bg-card border border-border rounded-lg overflow-hidden">
           <Table>
             <TableHeader>
               <TableRow>
@@ -45,20 +45,20 @@ export default async function CustomersPage({
               {(customers ?? []).map((c) => (
                 <TableRow key={c.id}>
                   <TableCell>
-                    <Link href={`/customers/${c.id}`} className="font-medium text-neutral-900 hover:underline">
+                    <Link href={`/customers/${c.id}`} className="font-medium text-foreground hover:underline">
                       {c.full_name}
                     </Link>
                   </TableCell>
-                  <TableCell className="text-sm text-neutral-600">
+                  <TableCell className="text-sm text-muted-foreground">
                     {c.email && <p>{c.email}</p>}
-                    {c.phone && <p className="text-neutral-400">{c.phone}</p>}
+                    {c.phone && <p className="text-muted-foreground">{c.phone}</p>}
                   </TableCell>
                   <TableCell>{formatNaira(c.total_spend)}</TableCell>
-                  <TableCell className="text-sm text-neutral-500">{formatDate(c.created_at)}</TableCell>
+                  <TableCell className="text-sm text-muted-foreground">{formatDate(c.created_at)}</TableCell>
                 </TableRow>
               ))}
               {(customers ?? []).length === 0 && (
-                <TableRow><TableCell colSpan={4} className="text-center text-neutral-400 py-10">No customers yet.</TableCell></TableRow>
+                <TableRow><TableCell colSpan={4} className="text-center text-muted-foreground py-10">No customers yet.</TableCell></TableRow>
               )}
             </TableBody>
           </Table>

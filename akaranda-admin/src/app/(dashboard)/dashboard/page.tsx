@@ -1,4 +1,4 @@
-import { requireModule } from "@/lib/guard";
+﻿import { requireModule } from "@/lib/guard";
 import { createClient } from "@/lib/supabase/server";
 import { formatDate } from "@/lib/utils";
 import Topbar from "@/components/layout/Topbar";
@@ -67,38 +67,38 @@ export default async function DashboardPage() {
           <StatCard label="Low Stock" value={lowStockProducts ?? 0} icon={AlertTriangle} hint="Under 5 units" />
           <StatCard label="Total Orders" value={totalOrders ?? 0} icon={Receipt} />
           <StatCard label="Pending Orders" value={pendingOrders ?? 0} icon={Clock} />
-          <StatCard label="Revenue" value="₦ —" icon={Wallet} hint="Connect payment provider" />
+          <StatCard label="Revenue" value="â‚¦ â€”" icon={Wallet} hint="Connect payment provider" />
           <StatCard label="Newsletter Subscribers" value={subscribers ?? 0} icon={Mail} />
           <StatCard label="Wardrobe Requests" value={wardrobeRequests ?? 0} icon={Shirt} />
         </div>
 
         <div className="grid lg:grid-cols-3 gap-4">
-          <div className="bg-white border border-neutral-200 rounded-lg p-5 lg:col-span-1">
-            <p className="text-sm font-medium text-neutral-800 mb-2">Orders By Month</p>
+          <div className="bg-card border border-border rounded-lg p-5 lg:col-span-1">
+            <p className="text-sm font-medium text-foreground mb-2">Orders By Month</p>
             <OrdersByMonthChart data={ordersByMonth} />
           </div>
-          <div className="bg-white border border-neutral-200 rounded-lg p-5 lg:col-span-1">
-            <p className="text-sm font-medium text-neutral-800 mb-2">Products By Category</p>
+          <div className="bg-card border border-border rounded-lg p-5 lg:col-span-1">
+            <p className="text-sm font-medium text-foreground mb-2">Products By Category</p>
             <ProductsByCategoryChart data={productsByCategory} />
           </div>
-          <div className="bg-white border border-neutral-200 rounded-lg p-5 lg:col-span-1">
-            <p className="text-sm font-medium text-neutral-800 mb-2">Wardrobe Requests</p>
+          <div className="bg-card border border-border rounded-lg p-5 lg:col-span-1">
+            <p className="text-sm font-medium text-foreground mb-2">Wardrobe Requests</p>
             <WardrobeRequestsChart data={wardrobeByStatus} />
           </div>
         </div>
 
-        <div className="bg-white border border-neutral-200 rounded-lg p-5">
-          <p className="text-sm font-medium text-neutral-800 mb-4">Recent Activity</p>
+        <div className="bg-card border border-border rounded-lg p-5">
+          <p className="text-sm font-medium text-foreground mb-4">Recent Activity</p>
           <div className="space-y-3">
             {(recentActivity ?? []).length === 0 && (
-              <p className="text-sm text-neutral-400">No activity yet.</p>
+              <p className="text-sm text-muted-foreground">No activity yet.</p>
             )}
             {(recentActivity ?? []).map((entry) => (
-              <div key={entry.id} className="flex items-center justify-between text-sm border-b border-neutral-100 pb-2 last:border-0 last:pb-0">
-                <span className="text-neutral-700">
+              <div key={entry.id} className="flex items-center justify-between text-sm border-b border-border pb-2 last:border-0 last:pb-0">
+                <span className="text-foreground">
                   <span className="font-medium">{entry.actor_name ?? "System"}</span> {entry.action.replace(/_/g, " ")}
                 </span>
-                <span className="text-neutral-400 text-xs">{formatDate(entry.created_at)}</span>
+                <span className="text-muted-foreground text-xs">{formatDate(entry.created_at)}</span>
               </div>
             ))}
           </div>

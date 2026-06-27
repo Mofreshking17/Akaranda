@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -37,8 +37,8 @@ export default function SubscribersTable({ subscribers }: { subscribers: Newslet
         {subscribers.map((s) => (
           <TableRow key={s.id}>
             <TableCell>{s.email}</TableCell>
-            <TableCell>{s.full_name ?? "—"}</TableCell>
-            <TableCell className="text-sm text-neutral-500">{formatDate(s.subscribed_at)}</TableCell>
+            <TableCell>{s.full_name ?? "â€”"}</TableCell>
+            <TableCell className="text-sm text-muted-foreground">{formatDate(s.subscribed_at)}</TableCell>
             <TableCell>
               <button onClick={() => remove(s.id, s.email)} disabled={busyId === s.id} className="text-red-600 hover:text-red-700">
                 <Trash2 className="w-4 h-4" />
@@ -47,7 +47,7 @@ export default function SubscribersTable({ subscribers }: { subscribers: Newslet
           </TableRow>
         ))}
         {subscribers.length === 0 && (
-          <TableRow><TableCell colSpan={4} className="text-center text-neutral-400 py-10">No subscribers yet.</TableCell></TableRow>
+          <TableRow><TableCell colSpan={4} className="text-center text-muted-foreground py-10">No subscribers yet.</TableCell></TableRow>
         )}
       </TableBody>
     </Table>

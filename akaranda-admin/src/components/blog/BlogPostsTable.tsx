@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -46,11 +46,11 @@ export default function BlogPostsTable({ posts }: { posts: BlogPost[] }) {
         {posts.map((p) => (
           <TableRow key={p.id}>
             <TableCell>
-              <Link href={`/blog/${p.id}`} className="font-medium text-neutral-900 hover:underline">{p.title}</Link>
+              <Link href={`/blog/${p.id}`} className="font-medium text-foreground hover:underline">{p.title}</Link>
             </TableCell>
             <TableCell><Badge variant={STATUS_VARIANT[p.status]} className="capitalize">{p.status}</Badge></TableCell>
-            <TableCell className="text-sm text-neutral-500">{p.tags.join(", ") || "—"}</TableCell>
-            <TableCell className="text-sm text-neutral-500">{formatDate(p.updated_at)}</TableCell>
+            <TableCell className="text-sm text-muted-foreground">{p.tags.join(", ") || "â€”"}</TableCell>
+            <TableCell className="text-sm text-muted-foreground">{formatDate(p.updated_at)}</TableCell>
             <TableCell>
               <button onClick={() => remove(p.id, p.title)} disabled={busyId === p.id} className="text-red-600 hover:text-red-700">
                 <Trash2 className="w-4 h-4" />
@@ -59,7 +59,7 @@ export default function BlogPostsTable({ posts }: { posts: BlogPost[] }) {
           </TableRow>
         ))}
         {posts.length === 0 && (
-          <TableRow><TableCell colSpan={5} className="text-center text-neutral-400 py-10">No blog posts yet.</TableCell></TableRow>
+          <TableRow><TableCell colSpan={5} className="text-center text-muted-foreground py-10">No blog posts yet.</TableCell></TableRow>
         )}
       </TableBody>
     </Table>

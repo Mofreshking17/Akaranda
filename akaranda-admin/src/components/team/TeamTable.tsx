@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -38,7 +38,7 @@ export default function TeamTable({ members, currentUserId }: { members: Profile
         {members.map((m) => (
           <TableRow key={m.id}>
             <TableCell className="font-medium">{m.full_name}{m.id === currentUserId && " (You)"}</TableCell>
-            <TableCell className="text-sm text-neutral-500">{m.email}</TableCell>
+            <TableCell className="text-sm text-muted-foreground">{m.email}</TableCell>
             <TableCell>
               <Select
                 defaultValue={m.role}

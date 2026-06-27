@@ -1,3 +1,5 @@
+import Reveal, { RevealItem } from "@/components/ui/Reveal";
+
 const features = [
   {
     icon: "✦",
@@ -25,19 +27,19 @@ export default function WhyAkaranda() {
   return (
     <section className="bg-white py-16 md:py-20 px-4">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
+        <Reveal className="text-center mb-12">
           <p className="section-subtitle">Why Choose Us</p>
           <h2 className="section-title">The AKARANDA Difference</h2>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        </Reveal>
+        <Reveal stagger staggerGap={0.1} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((f, i) => (
-            <div key={i} className="text-center group">
-              <div className="text-3xl text-brand-secondary mb-4">{f.icon}</div>
+            <RevealItem key={i} className="text-center group">
+              <div className="text-3xl text-brand-secondary mb-4 transition-transform duration-500 ease-luxe group-hover:scale-110">{f.icon}</div>
               <h3 className="text-brand-brown text-sm tracking-widest uppercase font-medium mb-3">{f.title}</h3>
               <p className="text-brand-muted text-sm leading-relaxed">{f.desc}</p>
-            </div>
+            </RevealItem>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   );

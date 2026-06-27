@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
@@ -30,8 +30,8 @@ export default function BrandSettingsForm({
   }
 
   return (
-    <section className="bg-white border border-neutral-200 rounded-lg p-6 space-y-4">
-      <h3 className="font-medium text-neutral-900">Brand Information</h3>
+    <section className="bg-card border border-border rounded-lg p-6 space-y-4">
+      <h3 className="font-medium text-foreground">Brand Information</h3>
       <div>
         <Label>Brand Name</Label>
         <Input value={name} onChange={(e) => setName(e.target.value)} />
@@ -45,7 +45,7 @@ export default function BrandSettingsForm({
         <MediaPicker selected={logo} onChange={(urls) => setLogo(urls.slice(-1))} folder="branding" />
       </div>
       <Button size="sm" onClick={save} disabled={saving}>
-        {saving ? "Saving..." : saved ? "Saved ✓" : "Save Brand Settings"}
+        {saving ? "Saving..." : saved ? "Saved âœ“" : "Save Brand Settings"}
       </Button>
     </section>
   );

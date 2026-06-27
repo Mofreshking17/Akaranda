@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { requireModule } from "@/lib/guard";
 import { createClient } from "@/lib/supabase/server";
 import Topbar from "@/components/layout/Topbar";
@@ -43,7 +43,7 @@ export default async function OrdersPage({
           />
         </form>
 
-        <div className="bg-white border border-neutral-200 rounded-lg overflow-hidden">
+        <div className="bg-card border border-border rounded-lg overflow-hidden">
           <Table>
             <TableHeader>
               <TableRow>
@@ -59,7 +59,7 @@ export default async function OrdersPage({
               {(orders ?? []).map((o) => (
                 <TableRow key={o.id}>
                   <TableCell>
-                    <Link href={`/orders/${o.id}`} className="font-medium text-neutral-900 hover:underline">
+                    <Link href={`/orders/${o.id}`} className="font-medium text-foreground hover:underline">
                       {o.order_number}
                     </Link>
                   </TableCell>
@@ -67,11 +67,11 @@ export default async function OrdersPage({
                   <TableCell>{formatNaira(o.total)}</TableCell>
                   <TableCell className="capitalize text-sm">{o.payment_status}</TableCell>
                   <TableCell><Badge variant={STATUS_VARIANT[o.status as OrderStatus]} className="capitalize">{o.status.replace(/_/g, " ")}</Badge></TableCell>
-                  <TableCell className="text-sm text-neutral-500">{formatDate(o.created_at)}</TableCell>
+                  <TableCell className="text-sm text-muted-foreground">{formatDate(o.created_at)}</TableCell>
                 </TableRow>
               ))}
               {(orders ?? []).length === 0 && (
-                <TableRow><TableCell colSpan={6} className="text-center text-neutral-400 py-10">No orders yet.</TableCell></TableRow>
+                <TableRow><TableCell colSpan={6} className="text-center text-muted-foreground py-10">No orders yet.</TableCell></TableRow>
               )}
             </TableBody>
           </Table>

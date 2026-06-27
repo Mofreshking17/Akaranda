@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -25,23 +25,23 @@ export default function LookbookCard({ collection }: { collection: LookbookColle
   }
 
   return (
-    <div className="bg-white border border-neutral-200 rounded-lg overflow-hidden">
-      <div className="relative h-40 bg-neutral-100">
+    <div className="bg-card border border-border rounded-lg overflow-hidden">
+      <div className="relative h-40 bg-muted">
         {collection.cover_image && <Image src={collection.cover_image} alt={collection.title} fill className="object-cover" />}
         {collection.is_featured && <Star className="absolute top-2 right-2 w-5 h-5 text-amber-400 fill-amber-400" />}
       </div>
       <div className="p-4 space-y-3">
         <div>
-          <p className="font-medium text-neutral-900">{collection.title}</p>
+          <p className="font-medium text-foreground">{collection.title}</p>
           <Badge variant="outline" className="capitalize mt-1">{collection.collection_group}</Badge>
         </div>
 
         <div className="flex items-center justify-between text-sm">
-          <span className="text-neutral-500">Published</span>
+          <span className="text-muted-foreground">Published</span>
           <Switch checked={collection.is_published} disabled={busy} onCheckedChange={(v) => run(() => togglePublishCollection(collection.id, v))} />
         </div>
         <div className="flex items-center justify-between text-sm">
-          <span className="text-neutral-500">Featured</span>
+          <span className="text-muted-foreground">Featured</span>
           <Switch checked={collection.is_featured} disabled={busy} onCheckedChange={(v) => run(() => toggleFeatureCollection(collection.id, v))} />
         </div>
 

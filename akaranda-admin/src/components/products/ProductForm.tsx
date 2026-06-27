@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -65,8 +65,8 @@ export default function ProductForm({
   return (
     <form onSubmit={handleSubmit(submit)} className="space-y-8 max-w-4xl">
       {/* Basic Info */}
-      <section className="bg-white border border-neutral-200 rounded-lg p-6 space-y-4">
-        <h3 className="font-medium text-neutral-900">Basic Information</h3>
+      <section className="bg-card border border-border rounded-lg p-6 space-y-4">
+        <h3 className="font-medium text-foreground">Basic Information</h3>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <Label>Product Name</Label>
@@ -105,8 +105,8 @@ export default function ProductForm({
       </section>
 
       {/* Classification */}
-      <section className="bg-white border border-neutral-200 rounded-lg p-6 space-y-4">
-        <h3 className="font-medium text-neutral-900">Classification</h3>
+      <section className="bg-card border border-border rounded-lg p-6 space-y-4">
+        <h3 className="font-medium text-foreground">Classification</h3>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <Label>Category</Label>
@@ -135,15 +135,15 @@ export default function ProductForm({
       </section>
 
       {/* Pricing & Stock */}
-      <section className="bg-white border border-neutral-200 rounded-lg p-6 space-y-4">
-        <h3 className="font-medium text-neutral-900">Pricing & Stock</h3>
+      <section className="bg-card border border-border rounded-lg p-6 space-y-4">
+        <h3 className="font-medium text-foreground">Pricing & Stock</h3>
         <div className="grid grid-cols-3 gap-4">
           <div>
-            <Label>Price (₦)</Label>
+            <Label>Price (â‚¦)</Label>
             <Input type="number" step="100" {...register("price", { valueAsNumber: true })} />
           </div>
           <div>
-            <Label>Sale Price (₦)</Label>
+            <Label>Sale Price (â‚¦)</Label>
             <Input type="number" step="100" {...register("sale_price", { valueAsNumber: true })} />
           </div>
           <div>
@@ -172,8 +172,8 @@ export default function ProductForm({
       </section>
 
       {/* Fabric & Care */}
-      <section className="bg-white border border-neutral-200 rounded-lg p-6 space-y-4">
-        <h3 className="font-medium text-neutral-900">Fabric, Care & Delivery</h3>
+      <section className="bg-card border border-border rounded-lg p-6 space-y-4">
+        <h3 className="font-medium text-foreground">Fabric, Care & Delivery</h3>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <Label>Fabric Information</Label>
@@ -191,8 +191,8 @@ export default function ProductForm({
       </section>
 
       {/* Media */}
-      <section className="bg-white border border-neutral-200 rounded-lg p-6 space-y-4">
-        <h3 className="font-medium text-neutral-900">Product Images & Video</h3>
+      <section className="bg-card border border-border rounded-lg p-6 space-y-4">
+        <h3 className="font-medium text-foreground">Product Images & Video</h3>
         <MediaPicker selected={images} onChange={setImages} folder="products" />
         <div>
           <Label>Product Video URL</Label>
@@ -201,8 +201,8 @@ export default function ProductForm({
       </section>
 
       {/* Flags */}
-      <section className="bg-white border border-neutral-200 rounded-lg p-6 space-y-4">
-        <h3 className="font-medium text-neutral-900">Tags & Visibility</h3>
+      <section className="bg-card border border-border rounded-lg p-6 space-y-4">
+        <h3 className="font-medium text-foreground">Tags & Visibility</h3>
         <div className="grid grid-cols-2 gap-4">
           {[
             { key: "is_featured" as const, label: "Featured Product" },
@@ -210,7 +210,7 @@ export default function ProductForm({
             { key: "is_best_seller" as const, label: "Best Seller" },
             { key: "is_limited_edition" as const, label: "Limited Edition" },
           ].map((f) => (
-            <div key={f.key} className="flex items-center justify-between border border-neutral-200 rounded-md px-4 py-3">
+            <div key={f.key} className="flex items-center justify-between border border-border rounded-md px-4 py-3">
               <Label className="text-sm">{f.label}</Label>
               <Switch
                 defaultChecked={Boolean(defaultValues?.[f.key])}

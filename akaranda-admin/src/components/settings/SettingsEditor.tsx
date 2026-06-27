@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
@@ -33,8 +33,8 @@ export default function SettingsEditor({
   }
 
   return (
-    <section className="bg-white border border-neutral-200 rounded-lg p-6 space-y-4">
-      <h3 className="font-medium text-neutral-900">{title}</h3>
+    <section className="bg-card border border-border rounded-lg p-6 space-y-4">
+      <h3 className="font-medium text-foreground">{title}</h3>
       <div className="grid grid-cols-2 gap-4">
         {fields.map((f) => (
           <div key={f.name}>
@@ -49,7 +49,7 @@ export default function SettingsEditor({
         ))}
       </div>
       <Button size="sm" onClick={save} disabled={saving}>
-        {saving ? "Saving..." : saved ? "Saved ✓" : "Save"}
+        {saving ? "Saving..." : saved ? "Saved âœ“" : "Save"}
       </Button>
     </section>
   );

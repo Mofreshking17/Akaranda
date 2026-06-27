@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef, useState } from "react";
 import Image from "next/image";
@@ -46,7 +46,7 @@ export default function MediaPicker({
     <div>
       <div className="grid grid-cols-4 gap-3 mb-3">
         {selected.map((url) => (
-          <div key={url} className="relative h-28 rounded-md overflow-hidden border border-neutral-200 group">
+          <div key={url} className="relative h-28 rounded-md overflow-hidden border border-border group">
             <Image src={url} alt="" fill className="object-cover" />
             <button
               type="button"

@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
@@ -19,7 +20,10 @@ export default function OrderStatusSelect({ orderId, status }: { orderId: string
     setBusy(true);
     try {
       await updateOrderStatus(orderId, value as OrderStatus);
+      toast.success(`Order marked as ${value.replace(/_/g, " ")}`);
       router.refresh();
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Could not update order");
     } finally {
       setBusy(false);
     }
