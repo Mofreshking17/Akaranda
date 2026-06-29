@@ -1,8 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { MessageCircle } from "lucide-react";
 import { submitWardrobeRequest } from "@/app/actions/public";
+import { createClient } from "@/lib/supabase/client";
+import { buildWhatsAppLink, WHATSAPP_MESSAGES } from "@/lib/whatsapp";
 
 const steps = [
   { label: "Your Details" },
@@ -13,6 +16,20 @@ const steps = [
 ];
 
 export default function ChicsWardrobePage() {
+  const [waNumber, setWaNumber] = useState<string | undefined>();
+  useEffect(() => {
+    const supabase = createClient();
+    supabase
+      .from("settings")
+      .select("key, value")
+      .in("key", ["business_contact", "whatsapp"])
+      .then(({ data }) => {
+        const businessContact = data?.find((r) => r.key === "business_contact")?.value as { whatsapp_number?: string } | undefined;
+        const whatsapp = data?.find((r) => r.key === "whatsapp")?.value as { number?: string } | undefined;
+        setWaNumber(businessContact?.whatsapp_number || whatsapp?.number);
+      });
+  }, []);
+
   const [step, setStep] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -65,12 +82,15 @@ export default function ChicsWardrobePage() {
         <div className="text-center max-w-md">
           <div className="text-6xl mb-6">✅</div>
           <h2 className="text-3xl font-light text-brand-brown mb-4">Request Received!</h2>
-          <p className="text-brand-muted mb-6">
+          <p className="text-brand-muted mb-2">
             Thank you, {form.name}! Your Chic Wardrobe Refresh request is with us. We&apos;ll contact you within 24 hours to confirm your personalized wardrobe package.
           </p>
-          <a href="https://wa.me/2348000000000?text=Hi%20AKARANDA%2C%20I%20just%20submitted%20a%20Chic%20Wardrobe%20Refresh%20request."
-            className="btn-gold mr-3" target="_blank" rel="noopener noreferrer">
-            Chat on WhatsApp
+          <p className="text-brand-muted mb-6">
+            For faster assistance, continue the conversation with our Fashion Consultant on WhatsApp.
+          </p>
+          <a href={buildWhatsAppLink(waNumber, WHATSAPP_MESSAGES.wardrobeChics)}
+            className="btn-gold mr-3 inline-flex items-center gap-2" target="_blank" rel="noopener noreferrer">
+            <MessageCircle size={16} /> Continue on WhatsApp
           </a>
           <Link href="/" className="btn-secondary">Back to Home</Link>
         </div>

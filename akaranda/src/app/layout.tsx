@@ -7,7 +7,8 @@ import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import CartDrawer from "@/components/cart/CartDrawer";
 import { CartProvider } from "@/context/CartContext";
-import { getSettings } from "@/lib/data";
+import { getSettings, getBusinessContact } from "@/lib/data";
+import { DEFAULT_WHATSAPP_NUMBER } from "@/lib/whatsapp";
 
 const display = Cormorant_Garamond({
   subsets: ["latin"],
@@ -36,8 +37,11 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const settings = await getSettings();
-  const whatsappNumber = ((settings.whatsapp ?? {}) as { number?: string }).number || "2348000000000";
+  const [settings, businessContact] = await Promise.all([getSettings(), getBusinessContact()]);
+  const whatsappNumber =
+    businessContact.whatsapp_number ||
+    ((settings.whatsapp ?? {}) as { number?: string }).number ||
+    DEFAULT_WHATSAPP_NUMBER;
 
   return (
     <html lang="en" className={`${display.variable} ${sans.variable}`}>

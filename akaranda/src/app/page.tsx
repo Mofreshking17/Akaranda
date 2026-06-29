@@ -1,4 +1,5 @@
 import HeroSlider from "@/components/home/HeroSlider";
+import WhatsAppBanner from "@/components/home/WhatsAppBanner";
 import WhyAkaranda from "@/components/home/WhyAkaranda";
 import ShopByCategory from "@/components/home/ShopByCategory";
 import FeaturedCollections from "@/components/home/FeaturedCollections";
@@ -19,6 +20,7 @@ export default async function HomePage() {
   return (
     <>
       <HeroSlider slides={heroSlides} />
+      <WhatsAppBanner />
       <WhyAkaranda />
       <ShopByCategory />
       <FeaturedCollections />

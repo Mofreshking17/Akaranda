@@ -231,3 +231,22 @@ export async function getSettings(): Promise<Settings> {
   });
   return map;
 }
+
+export type BusinessContact = {
+  phone?: string;
+  whatsapp_number?: string;
+  support_email?: string;
+  business_hours?: string;
+  label?: string;
+};
+
+/** Admin-editable WhatsApp/phone/email/hours, read dynamically rather than hardcoded. */
+export async function getBusinessContact(): Promise<BusinessContact> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("settings")
+    .select("value")
+    .eq("key", "business_contact")
+    .maybeSingle();
+  return (data?.value as BusinessContact) ?? {};
+}

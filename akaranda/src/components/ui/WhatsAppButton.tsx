@@ -1,28 +1,31 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { motion, useReducedMotion } from "framer-motion";
+import { buildWhatsAppLink, messageForPath } from "@/lib/whatsapp";
 
-export default function WhatsAppButton({ number = "2348000000000" }: { number?: string }) {
-  const clean = number.replace(/\D/g, "") || "2348000000000";
+export default function WhatsAppButton({ number }: { number?: string }) {
+  const pathname = usePathname();
   const reduce = useReducedMotion();
+  const href = buildWhatsAppLink(number, messageForPath(pathname || "/"));
 
   return (
     <motion.a
-      href={`https://wa.me/${clean}?text=Hello%20AKARANDA%20Fashion%2C%20I%20would%20like%20to%20place%20an%20order.`}
+      href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white rounded-full p-4 shadow-lg hover:bg-[#1db954] hover:scale-110 transition-[background-color,transform] duration-300"
-      aria-label="Chat on WhatsApp"
+      className="fixed bottom-5 right-5 md:bottom-6 md:right-6 z-[60] bg-[#25D366] text-white rounded-full p-3.5 md:p-4 shadow-lg hover:bg-[#1db954] hover:scale-110 transition-[background-color,transform] duration-300"
+      aria-label="Chat with AKARANDA Support on WhatsApp"
       initial={reduce ? false : { scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ delay: 1, type: "spring", stiffness: 260, damping: 18 }}
     >
-      {/* Soft attention ring */}
+      {/* Soft attention ring, pulses every few seconds */}
       {!reduce && (
         <motion.span
           className="absolute inset-0 rounded-full bg-[#25D366] -z-10"
           animate={{ scale: [1, 1.4], opacity: [0.5, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+          transition={{ duration: 2, repeat: Infinity, repeatDelay: 2, ease: "easeOut" }}
         />
       )}
       <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">

@@ -20,6 +20,7 @@ export default async function SettingsPage() {
           <TabsList>
             <TabsTrigger value="brand">Brand</TabsTrigger>
             <TabsTrigger value="contact">WhatsApp & Social</TabsTrigger>
+            <TabsTrigger value="business">Business Contact</TabsTrigger>
             <TabsTrigger value="delivery">Delivery & Shipping</TabsTrigger>
             <TabsTrigger value="seo">SEO & Analytics</TabsTrigger>
           </TabsList>
@@ -47,6 +48,21 @@ export default async function SettingsPage() {
                 { name: "tiktok", label: "TikTok URL" },
               ]}
               initialValue={find("social_links")}
+            />
+          </TabsContent>
+
+          <TabsContent value="business" className="mt-4 space-y-6">
+            <SettingsEditor
+              settingKey="business_contact"
+              title="Business Contact"
+              fields={[
+                { name: "phone", label: "Business Phone Number", placeholder: "+234 814 001 2132" },
+                { name: "whatsapp_number", label: "WhatsApp Number", placeholder: "+234 814 001 2132" },
+                { name: "support_email", label: "Support Email", placeholder: "hello@akaranda.com" },
+                { name: "business_hours", label: "Business Hours", placeholder: "Monday – Saturday, 9:00 AM – 6:00 PM" },
+                { name: "label", label: "WhatsApp Line Label", placeholder: "AKARANDA Support & Sales Line" },
+              ]}
+              initialValue={find("business_contact")}
             />
           </TabsContent>
 
