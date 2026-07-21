@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { LucideIcon } from "lucide-react";
+import type { ReactNode } from "react";
 
 function CountUp({ value }: { value: number }) {
   const [display, setDisplay] = useState(0);
@@ -41,12 +41,14 @@ function CountUp({ value }: { value: number }) {
 export default function StatCard({
   label,
   value,
-  icon: Icon,
+  icon,
   hint,
 }: {
   label: string;
   value: string | number;
-  icon: LucideIcon;
+  /** A rendered icon element (e.g. `<ShoppingBag />`), not a component reference —
+   *  component references can't cross the Server->Client boundary as props. */
+  icon: ReactNode;
   hint?: string;
 }) {
   const isNumber = typeof value === "number";
@@ -60,8 +62,8 @@ export default function StatCard({
           </p>
           {hint && <p className="text-xs text-muted-foreground mt-1">{hint}</p>}
         </div>
-        <div className="w-9 h-9 rounded-md bg-primary/10 text-primary flex items-center justify-center transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
-          <Icon className="w-4.5 h-4.5" />
+        <div className="w-9 h-9 rounded-md bg-primary/10 text-primary flex items-center justify-center transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground [&_svg]:w-4.5 [&_svg]:h-4.5">
+          {icon}
         </div>
       </div>
     </div>

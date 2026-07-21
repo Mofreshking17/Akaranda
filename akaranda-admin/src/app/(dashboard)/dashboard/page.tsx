@@ -62,14 +62,14 @@ export default async function DashboardPage() {
       <Topbar title="Dashboard Overview" />
       <div className="p-6 space-y-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <StatCard label="Total Products" value={totalProducts ?? 0} icon={ShoppingBag} />
-          <StatCard label="Active Products" value={activeProducts ?? 0} icon={Package} hint="Published" />
-          <StatCard label="Low Stock" value={lowStockProducts ?? 0} icon={AlertTriangle} hint="Under 5 units" />
-          <StatCard label="Total Orders" value={totalOrders ?? 0} icon={Receipt} />
-          <StatCard label="Pending Orders" value={pendingOrders ?? 0} icon={Clock} />
-          <StatCard label="Revenue" value="â‚¦ â€”" icon={Wallet} hint="Connect payment provider" />
-          <StatCard label="Newsletter Subscribers" value={subscribers ?? 0} icon={Mail} />
-          <StatCard label="Wardrobe Requests" value={wardrobeRequests ?? 0} icon={Shirt} />
+          <StatCard label="Total Products" value={totalProducts ?? 0} icon={<ShoppingBag />} />
+          <StatCard label="Active Products" value={activeProducts ?? 0} icon={<Package />} hint="Published" />
+          <StatCard label="Low Stock" value={lowStockProducts ?? 0} icon={<AlertTriangle />} hint="Under 5 units" />
+          <StatCard label="Total Orders" value={totalOrders ?? 0} icon={<Receipt />} />
+          <StatCard label="Pending Orders" value={pendingOrders ?? 0} icon={<Clock />} />
+          <StatCard label="Revenue" value="â‚¦ â€”" icon={<Wallet />} hint="Connect payment provider" />
+          <StatCard label="Newsletter Subscribers" value={subscribers ?? 0} icon={<Mail />} />
+          <StatCard label="Wardrobe Requests" value={wardrobeRequests ?? 0} icon={<Shirt />} />
         </div>
 
         <div className="grid lg:grid-cols-3 gap-4">
