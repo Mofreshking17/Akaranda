@@ -25,8 +25,8 @@ export default async function WardrobePage({
   return (
     <div>
       <Topbar title="Wardrobe Service Management" />
-      <div className="p-6 space-y-4">
-        <div className="flex gap-1 bg-card border border-border rounded-md p-1 w-fit">
+      <div className="p-4 md:p-6 space-y-4">
+        <div className="flex flex-wrap gap-1 bg-card border border-border rounded-md p-1 w-fit">
           {(["kiddies", "chics"] as WardrobeType[]).map((t) => (
             <Link
               key={t}
@@ -40,7 +40,7 @@ export default async function WardrobePage({
           ))}
         </div>
 
-        <div className="bg-card border border-border rounded-lg overflow-hidden">
+        <div className="bg-card border border-border rounded-lg overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>

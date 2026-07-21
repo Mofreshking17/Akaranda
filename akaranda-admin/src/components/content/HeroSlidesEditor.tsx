@@ -39,7 +39,7 @@ export default function HeroSlidesEditor({ slides }: { slides: Record<string, Sl
       {keys.map((key, i) => {
         const slide = data[key] ?? { image: "", tag: "", headline: "", sub: "" };
         return (
-          <section key={key} className="bg-card border border-border rounded-lg p-6 space-y-4">
+          <section key={key} className="bg-card border border-border rounded-lg p-4 md:p-6 space-y-4">
             <h3 className="font-medium text-foreground">Slide {i + 1}</h3>
             <div>
               <Label>Slide Image</Label>

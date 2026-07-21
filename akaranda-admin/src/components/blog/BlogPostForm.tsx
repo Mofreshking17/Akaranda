@@ -49,7 +49,7 @@ export default function BlogPostForm({
 
   return (
     <form onSubmit={handleSubmit(submit)} className="space-y-6 max-w-3xl">
-      <section className="bg-card border border-border rounded-lg p-6 space-y-4">
+      <section className="bg-card border border-border rounded-lg p-4 md:p-6 space-y-4">
         <div>
           <Label>Title</Label>
           <Input {...register("title")} onBlur={(e) => setValue("slug", slugify(e.target.value))} />
@@ -70,14 +70,14 @@ export default function BlogPostForm({
         </div>
       </section>
 
-      <section className="bg-card border border-border rounded-lg p-6 space-y-4">
+      <section className="bg-card border border-border rounded-lg p-4 md:p-6 space-y-4">
         <h3 className="font-medium text-foreground">Featured Image</h3>
         <MediaPicker selected={featuredImage} onChange={(urls) => setFeaturedImage(urls.slice(-1))} folder="blog" />
       </section>
 
-      <section className="bg-card border border-border rounded-lg p-6 space-y-4">
+      <section className="bg-card border border-border rounded-lg p-4 md:p-6 space-y-4">
         <h3 className="font-medium text-foreground">Categorisation</h3>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <Label>Category</Label>
             <Select defaultValue={defaultValues?.category_id ?? ""} onValueChange={(v) => v && setValue("category_id", v)}>
@@ -97,7 +97,7 @@ export default function BlogPostForm({
         </div>
       </section>
 
-      <section className="bg-card border border-border rounded-lg p-6 space-y-4">
+      <section className="bg-card border border-border rounded-lg p-4 md:p-6 space-y-4">
         <h3 className="font-medium text-foreground">SEO Metadata</h3>
         <div>
           <Label>SEO Title</Label>
@@ -109,9 +109,9 @@ export default function BlogPostForm({
         </div>
       </section>
 
-      <section className="bg-card border border-border rounded-lg p-6 space-y-4">
+      <section className="bg-card border border-border rounded-lg p-4 md:p-6 space-y-4">
         <h3 className="font-medium text-foreground">Publishing</h3>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <Label>Status</Label>
             <Select defaultValue={defaultValues?.status ?? "draft"} onValueChange={(v) => v && setValue("status", v as BlogPostFormValues["status"])}>

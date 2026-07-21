@@ -60,14 +60,14 @@ export default async function DashboardPage() {
   return (
     <div>
       <Topbar title="Dashboard Overview" />
-      <div className="p-6 space-y-6">
+      <div className="p-4 md:p-6 space-y-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <StatCard label="Total Products" value={totalProducts ?? 0} icon={<ShoppingBag />} />
           <StatCard label="Active Products" value={activeProducts ?? 0} icon={<Package />} hint="Published" />
           <StatCard label="Low Stock" value={lowStockProducts ?? 0} icon={<AlertTriangle />} hint="Under 5 units" />
           <StatCard label="Total Orders" value={totalOrders ?? 0} icon={<Receipt />} />
           <StatCard label="Pending Orders" value={pendingOrders ?? 0} icon={<Clock />} />
-          <StatCard label="Revenue" value="â‚¦ â€”" icon={<Wallet />} hint="Connect payment provider" />
+          <StatCard label="Revenue" value="₦ —" icon={<Wallet />} hint="Connect payment provider" />
           <StatCard label="Newsletter Subscribers" value={subscribers ?? 0} icon={<Mail />} />
           <StatCard label="Wardrobe Requests" value={wardrobeRequests ?? 0} icon={<Shirt />} />
         </div>
@@ -94,11 +94,11 @@ export default async function DashboardPage() {
               <p className="text-sm text-muted-foreground">No activity yet.</p>
             )}
             {(recentActivity ?? []).map((entry) => (
-              <div key={entry.id} className="flex items-center justify-between text-sm border-b border-border pb-2 last:border-0 last:pb-0">
-                <span className="text-foreground">
+              <div key={entry.id} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 text-sm border-b border-border pb-2 last:border-0 last:pb-0">
+                <span className="text-foreground break-words">
                   <span className="font-medium">{entry.actor_name ?? "System"}</span> {entry.action.replace(/_/g, " ")}
                 </span>
-                <span className="text-muted-foreground text-xs">{formatDate(entry.created_at)}</span>
+                <span className="text-muted-foreground text-xs shrink-0">{formatDate(entry.created_at)}</span>
               </div>
             ))}
           </div>

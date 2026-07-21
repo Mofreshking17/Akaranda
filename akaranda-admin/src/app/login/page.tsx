@@ -15,7 +15,7 @@ export default async function LoginPage({
           <p className="text-sm text-muted-foreground mt-1">Admin Dashboard</p>
         </div>
 
-        <form action={signIn} className="bg-card border border-border rounded-lg p-6 space-y-4 shadow-sm">
+        <form action={signIn} className="bg-card border border-border rounded-lg p-6 sm:p-8 space-y-4 shadow-sm">
           {error && (
             <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-md px-3 py-2">
               {error}

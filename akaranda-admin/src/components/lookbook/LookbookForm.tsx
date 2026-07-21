@@ -40,7 +40,7 @@ export default function LookbookForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 max-w-3xl">
-      <section className="bg-card border border-border rounded-lg p-6 space-y-4">
+      <section className="bg-card border border-border rounded-lg p-4 md:p-6 space-y-4">
         <div>
           <Label>Collection Title</Label>
           <Input value={title} onChange={(e) => setTitle(e.target.value)} required placeholder="AKARANDA Kids â€” Summer 2025" />
@@ -63,12 +63,12 @@ export default function LookbookForm({
         </div>
       </section>
 
-      <section className="bg-card border border-border rounded-lg p-6 space-y-4">
+      <section className="bg-card border border-border rounded-lg p-4 md:p-6 space-y-4">
         <h3 className="font-medium text-foreground">Gallery Images & Videos</h3>
         <MediaPicker selected={images} onChange={setImages} folder="lookbook" />
       </section>
 
-      <section className="bg-card border border-border rounded-lg p-6 grid grid-cols-2 gap-4">
+      <section className="bg-card border border-border rounded-lg p-4 md:p-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="flex items-center justify-between border border-border rounded-md px-4 py-3">
           <Label>Feature Collection</Label>
           <Switch checked={featured} onCheckedChange={setFeatured} />

@@ -21,7 +21,7 @@ export default async function EditProductPage({ params }: { params: Promise<{ id
   return (
     <div>
       <Topbar title={`Edit — ${product.name}`} />
-      <div className="p-6">
+      <div className="p-4 md:p-6">
         <ProductForm
           categories={categories ?? []}
           defaultValues={{

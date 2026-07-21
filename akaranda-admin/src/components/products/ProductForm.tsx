@@ -65,9 +65,9 @@ export default function ProductForm({
   return (
     <form onSubmit={handleSubmit(submit)} className="space-y-8 max-w-4xl">
       {/* Basic Info */}
-      <section className="bg-card border border-border rounded-lg p-6 space-y-4">
+      <section className="bg-card border border-border rounded-lg p-4 md:p-6 space-y-4">
         <h3 className="font-medium text-foreground">Basic Information</h3>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <Label>Product Name</Label>
             <Input {...register("name")} onBlur={(e) => setValue("slug", slugify(e.target.value))} />
@@ -105,9 +105,9 @@ export default function ProductForm({
       </section>
 
       {/* Classification */}
-      <section className="bg-card border border-border rounded-lg p-6 space-y-4">
+      <section className="bg-card border border-border rounded-lg p-4 md:p-6 space-y-4">
         <h3 className="font-medium text-foreground">Classification</h3>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <Label>Category</Label>
             <Select defaultValue={defaultValues?.category_id ?? ""} onValueChange={(v) => v && setValue("category_id", v)}>
@@ -135,15 +135,15 @@ export default function ProductForm({
       </section>
 
       {/* Pricing & Stock */}
-      <section className="bg-card border border-border rounded-lg p-6 space-y-4">
+      <section className="bg-card border border-border rounded-lg p-4 md:p-6 space-y-4">
         <h3 className="font-medium text-foreground">Pricing & Stock</h3>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <Label>Price (â‚¦)</Label>
+            <Label>Price (₦)</Label>
             <Input type="number" step="100" {...register("price", { valueAsNumber: true })} />
           </div>
           <div>
-            <Label>Sale Price (â‚¦)</Label>
+            <Label>Sale Price (₦)</Label>
             <Input type="number" step="100" {...register("sale_price", { valueAsNumber: true })} />
           </div>
           <div>
@@ -151,7 +151,7 @@ export default function ProductForm({
             <Input type="number" {...register("stock_quantity", { valueAsNumber: true })} />
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <Label>Available Sizes (comma separated)</Label>
             <Input
@@ -172,9 +172,9 @@ export default function ProductForm({
       </section>
 
       {/* Fabric & Care */}
-      <section className="bg-card border border-border rounded-lg p-6 space-y-4">
+      <section className="bg-card border border-border rounded-lg p-4 md:p-6 space-y-4">
         <h3 className="font-medium text-foreground">Fabric, Care & Delivery</h3>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <Label>Fabric Information</Label>
             <Input {...register("fabric_info")} placeholder="100% premium Ankara cotton" />
@@ -191,7 +191,7 @@ export default function ProductForm({
       </section>
 
       {/* Media */}
-      <section className="bg-card border border-border rounded-lg p-6 space-y-4">
+      <section className="bg-card border border-border rounded-lg p-4 md:p-6 space-y-4">
         <h3 className="font-medium text-foreground">Product Images & Video</h3>
         <MediaPicker selected={images} onChange={setImages} folder="products" />
         <div>
@@ -201,9 +201,9 @@ export default function ProductForm({
       </section>
 
       {/* Flags */}
-      <section className="bg-card border border-border rounded-lg p-6 space-y-4">
+      <section className="bg-card border border-border rounded-lg p-4 md:p-6 space-y-4">
         <h3 className="font-medium text-foreground">Tags & Visibility</h3>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
             { key: "is_featured" as const, label: "Featured Product" },
             { key: "is_new_arrival" as const, label: "New Arrival" },

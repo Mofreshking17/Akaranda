@@ -15,9 +15,9 @@ export default async function TeamPage() {
   return (
     <div>
       <Topbar title="Team Management" />
-      <div className="p-6 space-y-6">
+      <div className="p-4 md:p-6 space-y-6">
         <InviteMemberForm />
-        <div className="bg-card border border-border rounded-lg overflow-hidden">
+        <div className="bg-card border border-border rounded-lg overflow-x-auto">
           <TeamTable members={members ?? []} currentUserId={profile.id} />
         </div>
       </div>

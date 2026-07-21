@@ -14,13 +14,13 @@ export default async function BlogPage() {
   return (
     <div>
       <Topbar title="Blog Management" />
-      <div className="p-6 space-y-4">
+      <div className="p-4 md:p-6 space-y-4">
         <div className="flex justify-end">
           <Link href="/blog/new">
             <Button><Plus className="w-4 h-4 mr-1" /> New Post</Button>
           </Link>
         </div>
-        <div className="bg-card border border-border rounded-lg overflow-hidden">
+        <div className="bg-card border border-border rounded-lg overflow-x-auto">
           <BlogPostsTable posts={posts ?? []} />
         </div>
       </div>

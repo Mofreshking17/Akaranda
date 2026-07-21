@@ -24,13 +24,13 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
   return (
     <div>
       <Topbar title={customer.full_name} />
-      <div className="p-6 grid lg:grid-cols-3 gap-6">
+      <div className="p-4 md:p-6 grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
-          <section className="bg-white border border-neutral-200 rounded-lg p-6">
+          <section className="bg-white border border-neutral-200 rounded-lg p-4 md:p-6">
             <h3 className="font-medium text-neutral-900 mb-4">Order History</h3>
             <div className="divide-y divide-neutral-100">
               {(orders ?? []).map((o) => (
-                <Link key={o.id} href={`/orders/${o.id}`} className="py-3 flex items-center justify-between text-sm hover:bg-neutral-50 -mx-2 px-2 rounded">
+                <Link key={o.id} href={`/orders/${o.id}`} className="py-3 flex flex-wrap items-center justify-between gap-2 text-sm hover:bg-neutral-50 -mx-2 px-2 rounded">
                   <div>
                     <p className="font-medium text-neutral-800">{o.order_number}</p>
                     <p className="text-neutral-400 text-xs">{formatDate(o.created_at)}</p>
@@ -45,7 +45,7 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
             </div>
           </section>
 
-          <section className="bg-white border border-neutral-200 rounded-lg p-6">
+          <section className="bg-white border border-neutral-200 rounded-lg p-4 md:p-6">
             <h3 className="font-medium text-neutral-900 mb-4">Wishlist</h3>
             <div className="divide-y divide-neutral-100">
               {(wishlist ?? []).map((w) => {
@@ -61,11 +61,11 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
             </div>
           </section>
 
-          <section className="bg-white border border-neutral-200 rounded-lg p-6">
+          <section className="bg-white border border-neutral-200 rounded-lg p-4 md:p-6">
             <h3 className="font-medium text-neutral-900 mb-4">Wardrobe Service Requests</h3>
             <div className="divide-y divide-neutral-100">
               {(wardrobeRequests ?? []).map((w) => (
-                <Link key={w.id} href={`/wardrobe/${w.id}`} className="py-2.5 flex items-center justify-between text-sm hover:bg-neutral-50 -mx-2 px-2 rounded">
+                <Link key={w.id} href={`/wardrobe/${w.id}`} className="py-2.5 flex flex-wrap items-center justify-between gap-2 text-sm hover:bg-neutral-50 -mx-2 px-2 rounded">
                   <span className="capitalize">{w.type} Wardrobe — {w.occasion ?? "General"}</span>
                   <Badge variant="outline" className="capitalize">{w.status.replace(/_/g, " ")}</Badge>
                 </Link>
@@ -76,7 +76,7 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
         </div>
 
         <div className="space-y-6">
-          <section className="bg-white border border-neutral-200 rounded-lg p-6">
+          <section className="bg-white border border-neutral-200 rounded-lg p-4 md:p-6">
             <h3 className="font-medium text-neutral-900 mb-3">Profile</h3>
             <div className="space-y-1.5 text-sm">
               {customer.email && <p><span className="text-neutral-500">Email:</span> {customer.email}</p>}
@@ -86,12 +86,12 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
             </div>
           </section>
 
-          <section className="bg-white border border-neutral-200 rounded-lg p-6">
+          <section className="bg-white border border-neutral-200 rounded-lg p-4 md:p-6">
             <h3 className="font-medium text-neutral-900 mb-1">Total Spend</h3>
             <p className="text-2xl font-semibold text-neutral-900">{formatNaira(customer.total_spend)}</p>
           </section>
 
-          <section className="bg-white border border-neutral-200 rounded-lg p-6">
+          <section className="bg-white border border-neutral-200 rounded-lg p-4 md:p-6">
             <h3 className="font-medium text-neutral-900 mb-3">Customer Notes</h3>
             <CustomerNotes customerId={customer.id} initialNotes={customer.notes ?? ""} />
           </section>

@@ -20,7 +20,7 @@ export default async function EditBlogPostPage({ params }: { params: Promise<{ i
   return (
     <div>
       <Topbar title={`Edit — ${post.title}`} />
-      <div className="p-6">
+      <div className="p-4 md:p-6">
         <BlogPostForm
           categories={categories ?? []}
           defaultValues={{

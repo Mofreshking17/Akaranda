@@ -9,7 +9,7 @@ export default async function NewTestimonialPage() {
   return (
     <div>
       <Topbar title="Add Testimonial" />
-      <div className="p-6">
+      <div className="p-4 md:p-6">
         <TestimonialForm
           onSubmit={async (values) => {
             "use server";

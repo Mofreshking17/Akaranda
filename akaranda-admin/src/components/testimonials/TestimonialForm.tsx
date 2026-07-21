@@ -53,8 +53,8 @@ export default function TestimonialForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
-      <section className="bg-card border border-border rounded-lg p-6 space-y-4">
-        <div className="grid grid-cols-2 gap-4">
+      <section className="bg-card border border-border rounded-lg p-4 md:p-6 space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <Label>Customer Name</Label>
             <Input value={customerName} onChange={(e) => setCustomerName(e.target.value)} required />
@@ -82,7 +82,7 @@ export default function TestimonialForm({
         </div>
       </section>
 
-      <section className="bg-card border border-border rounded-lg p-6 grid grid-cols-2 gap-4">
+      <section className="bg-card border border-border rounded-lg p-4 md:p-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="flex items-center justify-between border border-border rounded-md px-4 py-3">
           <Label>Featured</Label>
           <Switch checked={featured} onCheckedChange={setFeatured} />

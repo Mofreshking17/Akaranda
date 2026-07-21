@@ -30,7 +30,7 @@ export default function BrandSettingsForm({
   }
 
   return (
-    <section className="bg-card border border-border rounded-lg p-6 space-y-4">
+    <section className="bg-card border border-border rounded-lg p-4 md:p-6 space-y-4">
       <h3 className="font-medium text-foreground">Brand Information</h3>
       <div>
         <Label>Brand Name</Label>

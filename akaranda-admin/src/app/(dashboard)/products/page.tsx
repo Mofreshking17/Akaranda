@@ -25,22 +25,22 @@ export default async function ProductsPage({
   return (
     <div>
       <Topbar title="Product Management" />
-      <div className="p-6 space-y-4">
-        <div className="flex items-center justify-between">
+      <div className="p-4 md:p-6 space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <form className="flex gap-2">
             <input
               name="q"
               defaultValue={q}
               placeholder="Search products..."
-              className="border border-neutral-300 rounded-md px-3 py-1.5 text-sm w-64 outline-none focus:ring-2 focus:ring-neutral-900"
+              className="border border-neutral-300 rounded-md px-3 py-1.5 text-sm w-full sm:w-64 outline-none focus:ring-2 focus:ring-neutral-900"
             />
           </form>
-          <Link href="/products/new">
-            <Button><Plus className="w-4 h-4 mr-1" /> New Product</Button>
+          <Link href="/products/new" className="sm:shrink-0">
+            <Button className="w-full sm:w-auto"><Plus className="w-4 h-4 mr-1" /> New Product</Button>
           </Link>
         </div>
 
-        <div className="bg-card border border-border rounded-lg overflow-hidden">
+        <div className="bg-card border border-border rounded-lg overflow-x-auto">
           <ProductsTable products={products ?? []} />
         </div>
       </div>

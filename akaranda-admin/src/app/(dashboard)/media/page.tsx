@@ -23,14 +23,14 @@ export default async function MediaPage({
   return (
     <div>
       <Topbar title="Media Library" />
-      <div className="p-6 space-y-4">
-        <div className="flex items-center justify-between">
-          <div className="flex gap-1 bg-card border border-border rounded-md p-1">
+      <div className="p-4 md:p-6 space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div className="flex gap-1 bg-card border border-border rounded-md p-1 overflow-x-auto max-w-full">
             {FOLDERS.map((f) => (
               <Link
                 key={f}
                 href={`/media?folder=${f}`}
-                className={`px-3 py-1.5 text-sm rounded-md capitalize transition-colors ${
+                className={`px-3 py-1.5 text-sm rounded-md capitalize transition-colors whitespace-nowrap shrink-0 ${
                   folder === f ? "bg-primary text-white" : "text-muted-foreground hover:bg-muted"
                 }`}
               >
@@ -47,11 +47,11 @@ export default async function MediaPage({
             name="q"
             defaultValue={q}
             placeholder="Search files..."
-            className="border border-neutral-300 rounded-md px-3 py-1.5 text-sm w-64 outline-none focus:ring-2 focus:ring-neutral-900"
+            className="border border-neutral-300 rounded-md px-3 py-1.5 text-sm w-full sm:w-64 outline-none focus:ring-2 focus:ring-neutral-900"
           />
         </form>
 
-        <div className="bg-card border border-border rounded-lg p-5">
+        <div className="bg-card border border-border rounded-lg p-4 md:p-5">
           <MediaLibraryGrid files={files ?? []} />
         </div>
       </div>

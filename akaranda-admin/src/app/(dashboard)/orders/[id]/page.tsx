@@ -21,9 +21,9 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
   return (
     <div>
       <Topbar title={`Order ${order.order_number}`} />
-      <div className="p-6 grid lg:grid-cols-3 gap-6">
+      <div className="p-4 md:p-6 grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
-          <section className="bg-white border border-neutral-200 rounded-lg p-6">
+          <section className="bg-white border border-neutral-200 rounded-lg p-4 md:p-6">
             <h3 className="font-medium text-neutral-900 mb-4">Products Purchased</h3>
             <div className="divide-y divide-neutral-100">
               {(items ?? []).map((item) => (
@@ -46,7 +46,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
             </div>
           </section>
 
-          <section className="bg-white border border-neutral-200 rounded-lg p-6">
+          <section className="bg-white border border-neutral-200 rounded-lg p-4 md:p-6">
             <h3 className="font-medium text-neutral-900 mb-4">Status History</h3>
             <div className="space-y-2">
               {(history ?? []).map((h) => (
@@ -61,13 +61,13 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
         </div>
 
         <div className="space-y-6">
-          <section className="bg-white border border-neutral-200 rounded-lg p-6">
+          <section className="bg-white border border-neutral-200 rounded-lg p-4 md:p-6">
             <h3 className="font-medium text-neutral-900 mb-3">Order Status</h3>
             <OrderStatusSelect orderId={order.id} status={order.status} />
             <p className="text-xs text-neutral-400 mt-2">Customer is notified by email when status changes.</p>
           </section>
 
-          <section className="bg-white border border-neutral-200 rounded-lg p-6">
+          <section className="bg-white border border-neutral-200 rounded-lg p-4 md:p-6">
             <h3 className="font-medium text-neutral-900 mb-3">Customer Information</h3>
             <div className="space-y-1.5 text-sm">
               <p><span className="text-neutral-500">Name:</span> {order.customer_name}</p>
@@ -77,7 +77,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
             </div>
           </section>
 
-          <section className="bg-white border border-neutral-200 rounded-lg p-6">
+          <section className="bg-white border border-neutral-200 rounded-lg p-4 md:p-6">
             <h3 className="font-medium text-neutral-900 mb-3">Payment</h3>
             <p className="text-sm capitalize">{order.payment_status}</p>
           </section>

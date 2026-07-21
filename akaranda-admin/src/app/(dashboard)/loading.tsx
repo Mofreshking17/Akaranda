@@ -1,10 +1,10 @@
 export default function DashboardLoading() {
   return (
     <div>
-      <div className="h-16 border-b border-border bg-card flex items-center px-6">
+      <div className="h-16 border-b border-border bg-card flex items-center px-4 md:px-6">
         <div className="h-5 w-40 bg-muted rounded animate-pulse" />
       </div>
-      <div className="p-6 space-y-6">
+      <div className="p-4 md:p-6 space-y-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {Array.from({ length: 4 }).map((_, i) => (
             <div key={i} className="bg-card border border-border rounded-lg p-5">

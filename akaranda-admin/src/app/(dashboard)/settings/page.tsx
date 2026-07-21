@@ -15,15 +15,17 @@ export default async function SettingsPage() {
   return (
     <div>
       <Topbar title="Settings" />
-      <div className="p-6">
+      <div className="p-4 md:p-6">
         <Tabs defaultValue="brand">
-          <TabsList>
-            <TabsTrigger value="brand">Brand</TabsTrigger>
-            <TabsTrigger value="contact">WhatsApp & Social</TabsTrigger>
-            <TabsTrigger value="business">Business Contact</TabsTrigger>
-            <TabsTrigger value="delivery">Delivery & Shipping</TabsTrigger>
-            <TabsTrigger value="seo">SEO & Analytics</TabsTrigger>
-          </TabsList>
+          <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
+            <TabsList className="w-max min-w-full md:w-fit">
+              <TabsTrigger value="brand" className="whitespace-nowrap">Brand</TabsTrigger>
+              <TabsTrigger value="contact" className="whitespace-nowrap">WhatsApp & Social</TabsTrigger>
+              <TabsTrigger value="business" className="whitespace-nowrap">Business Contact</TabsTrigger>
+              <TabsTrigger value="delivery" className="whitespace-nowrap">Delivery & Shipping</TabsTrigger>
+              <TabsTrigger value="seo" className="whitespace-nowrap">SEO & Analytics</TabsTrigger>
+            </TabsList>
+          </div>
 
           <TabsContent value="brand" className="mt-4">
             <BrandSettingsForm initialValue={find("brand")} />

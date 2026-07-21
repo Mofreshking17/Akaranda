@@ -9,7 +9,7 @@ export default async function NewLookbookCollectionPage() {
   return (
     <div>
       <Topbar title="New Lookbook Collection" />
-      <div className="p-6">
+      <div className="p-4 md:p-6">
         <LookbookForm
           onSubmit={async (values, images) => {
             "use server";

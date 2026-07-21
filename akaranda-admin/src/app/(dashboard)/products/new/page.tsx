@@ -12,7 +12,7 @@ export default async function NewProductPage() {
   return (
     <div>
       <Topbar title="New Product" />
-      <div className="p-6">
+      <div className="p-4 md:p-6">
         <ProductForm
           categories={categories ?? []}
           onSubmit={async (values, imageUrls) => {

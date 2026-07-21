@@ -21,17 +21,17 @@ export default async function CustomersPage({
   return (
     <div>
       <Topbar title="Customer Management" />
-      <div className="p-6 space-y-4">
+      <div className="p-4 md:p-6 space-y-4">
         <form className="flex gap-2">
           <input
             name="q"
             defaultValue={q}
             placeholder="Search by name, email, or phone..."
-            className="border border-neutral-300 rounded-md px-3 py-1.5 text-sm w-72 outline-none focus:ring-2 focus:ring-neutral-900"
+            className="border border-neutral-300 rounded-md px-3 py-1.5 text-sm w-full sm:w-72 outline-none focus:ring-2 focus:ring-neutral-900"
           />
         </form>
 
-        <div className="bg-card border border-border rounded-lg overflow-hidden">
+        <div className="bg-card border border-border rounded-lg overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>

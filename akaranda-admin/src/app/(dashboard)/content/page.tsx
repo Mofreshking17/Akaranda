@@ -22,15 +22,17 @@ export default async function ContentPage() {
   return (
     <div>
       <Topbar title="Website Content Management" />
-      <div className="p-6">
+      <div className="p-4 md:p-6">
         <Tabs defaultValue="hero">
-          <TabsList>
-            <TabsTrigger value="hero">Homepage Hero</TabsTrigger>
-            <TabsTrigger value="brand">Brand Story</TabsTrigger>
-            <TabsTrigger value="footer">Footer & Contact</TabsTrigger>
-            <TabsTrigger value="policies">Policies</TabsTrigger>
-            <TabsTrigger value="faqs">FAQs</TabsTrigger>
-          </TabsList>
+          <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
+            <TabsList className="w-max min-w-full md:w-fit">
+              <TabsTrigger value="hero" className="whitespace-nowrap">Homepage Hero</TabsTrigger>
+              <TabsTrigger value="brand" className="whitespace-nowrap">Brand Story</TabsTrigger>
+              <TabsTrigger value="footer" className="whitespace-nowrap">Footer & Contact</TabsTrigger>
+              <TabsTrigger value="policies" className="whitespace-nowrap">Policies</TabsTrigger>
+              <TabsTrigger value="faqs" className="whitespace-nowrap">FAQs</TabsTrigger>
+            </TabsList>
+          </div>
 
           <TabsContent value="hero" className="mt-4">
             <HeroSlidesEditor slides={heroSlides as never} />

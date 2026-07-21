@@ -12,7 +12,7 @@ export default async function NewBlogPostPage() {
   return (
     <div>
       <Topbar title="New Blog Post" />
-      <div className="p-6">
+      <div className="p-4 md:p-6">
         <BlogPostForm
           categories={categories ?? []}
           onSubmit={async (values) => {

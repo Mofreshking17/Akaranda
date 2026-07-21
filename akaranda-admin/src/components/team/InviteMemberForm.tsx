@@ -32,9 +32,9 @@ export default function InviteMemberForm() {
   }
 
   return (
-    <form onSubmit={submit} className="bg-card border border-border rounded-lg p-6 space-y-4">
+    <form onSubmit={submit} className="bg-card border border-border rounded-lg p-4 md:p-6 space-y-4">
       <h3 className="font-medium text-foreground">Invite Team Member</h3>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div>
           <Label>Full Name</Label>
           <Input value={fullName} onChange={(e) => setFullName(e.target.value)} required />
