@@ -21,6 +21,7 @@ export const WHATSAPP_MESSAGES = {
   wardrobeChics: "Hello AKARANDA Fashion, I'd like to enquire about the Chic Wardrobe Refresh Service.",
   contact: "Hello AKARANDA Fashion. I have an enquiry.",
   cart: "Hello AKARANDA Fashion. I need assistance with my order.",
+  order: "Hello AKARANDA Fashion, I'd like to ask about my order",
 } as const;
 
 const SHOP_CATEGORY_SLUGS = ["kids", "chics", "family", "best-sellers", "new-arrivals"];
@@ -31,6 +32,7 @@ export function messageForPath(pathname: string): string {
   if (pathname.startsWith("/wardrobe-services/chics")) return WHATSAPP_MESSAGES.wardrobeChics;
   if (pathname.startsWith("/contact")) return WHATSAPP_MESSAGES.contact;
   if (pathname.startsWith("/cart")) return WHATSAPP_MESSAGES.cart;
+  if (pathname.startsWith("/order/")) return WHATSAPP_MESSAGES.order;
   if (pathname.startsWith("/shop/")) {
     const slug = pathname.split("/")[2];
     if (slug && !SHOP_CATEGORY_SLUGS.includes(slug)) return WHATSAPP_MESSAGES.product;

@@ -3,45 +3,25 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Trash2, Plus, Minus, ShoppingBag, ArrowLeft, Check, MessageCircle } from "lucide-react";
+import { Trash2, Plus, Minus, ShoppingBag, ArrowLeft, MessageCircle, Lock } from "lucide-react";
 import { useCart } from "@/context/CartContext";
-import { createOrder } from "@/app/actions/public";
+import { initiateCheckout } from "@/app/actions/checkout";
 import { buildWhatsAppLink, WHATSAPP_MESSAGES } from "@/lib/whatsapp";
+
+const NIGERIAN_STATES = [
+  "Abia", "Adamawa", "Akwa Ibom", "Anambra", "Bauchi", "Bayelsa", "Benue", "Borno",
+  "Cross River", "Delta", "Ebonyi", "Edo", "Ekiti", "Enugu", "FCT (Abuja)", "Gombe",
+  "Imo", "Jigawa", "Kaduna", "Kano", "Katsina", "Kebbi", "Kogi", "Kwara", "Lagos",
+  "Nasarawa", "Niger", "Ogun", "Ondo", "Osun", "Oyo", "Plateau", "Rivers", "Sokoto",
+  "Taraba", "Yobe", "Zamfara",
+];
 
 export default function CartPageClient({ whatsappNumber }: { whatsappNumber?: string }) {
   const { items, removeFromCart, updateQty, clearCart, totalItems, totalPrice } = useCart();
-  const [customer, setCustomer] = useState({ name: "", phone: "", email: "", address: "" });
+  const [customer, setCustomer] = useState({ name: "", phone: "", email: "", address: "", city: "", state: "" });
   const [placing, setPlacing] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [confirmed, setConfirmed] = useState<string | null>(null);
-
-  if (confirmed) {
-    return (
-      <div className="min-h-screen bg-brand-cream flex flex-col items-center justify-center px-4 text-center">
-        <div className="w-16 h-16 rounded-full bg-brand-accent text-white flex items-center justify-center mb-6">
-          <Check size={32} />
-        </div>
-        <h1 className="text-3xl font-light text-brand-brown mb-3">Order Placed!</h1>
-        <p className="text-brand-muted mb-2 max-w-sm">
-          Your order <span className="font-medium text-brand-brown">{confirmed}</span> has been received.
-          We&apos;ll confirm availability and arrange payment within 24 hours.
-        </p>
-        <div className="bg-white border border-brand-sand p-6 mt-6 max-w-sm">
-          <p className="text-brand-brown font-medium mb-1">Need to discuss your order?</p>
-          <p className="text-brand-muted text-sm mb-4">Chat with AKARANDA Support on WhatsApp.</p>
-          <a
-            href={buildWhatsAppLink(whatsappNumber, `Hello AKARANDA Fashion, I'd like to discuss my order ${confirmed}.`)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary inline-flex items-center gap-2"
-          >
-            <MessageCircle size={16} /> Chat on WhatsApp
-          </a>
-        </div>
-        <Link href="/shop" className="btn-secondary mt-4">Continue Shopping</Link>
-      </div>
-    );
-  }
+  const [shortfalls, setShortfalls] = useState<{ product_name: string; available: number }[] | null>(null);
 
   if (items.length === 0) {
     return (
@@ -59,27 +39,18 @@ export default function CartPageClient({ whatsappNumber }: { whatsappNumber?: st
   const delivery = totalPrice >= 50000 ? 0 : 3500;
   const orderTotal = totalPrice + delivery;
 
-  const whatsappItems = items
-    .map((i) => `• ${i.name} (Size: ${i.selectedSize}) x${i.quantity} — ₦${(i.price * i.quantity).toLocaleString()}`)
-    .join("\n");
-
-  const orderWhatsappHref = buildWhatsAppLink(
-    whatsappNumber,
-    `Hello AKARANDA Fashion! 🛍️\n\nI would like to place an order:\n\n${whatsappItems}\n\nSubtotal: ₦${totalPrice.toLocaleString()}\nDelivery: ₦${delivery.toLocaleString()}\nTotal: ₦${orderTotal.toLocaleString()}\n\nPlease confirm availability and payment details. Thank you!`
-  );
-
-  async function handlePlaceOrder() {
-    if (!customer.name || !customer.phone) {
-      setError("Please enter your name and phone number.");
+  async function handlePayWithPaystack() {
+    if (!customer.name || !customer.phone || !customer.email || !customer.address || !customer.city || !customer.state) {
+      setError("Please fill in your name, email, phone, address, city, and state.");
       return;
     }
     setPlacing(true);
     setError(null);
-    const res = await createOrder({
-      customer_name: customer.name,
-      customer_phone: customer.phone,
-      customer_email: customer.email || undefined,
-      delivery_address: customer.address || undefined,
+    setShortfalls(null);
+
+    const callbackUrl = `${window.location.origin}/checkout/callback`;
+    const res = await initiateCheckout({
+      customer,
       items: items.map((i) => ({
         product_id: i.id,
         product_name: i.name,
@@ -88,18 +59,20 @@ export default function CartPageClient({ whatsappNumber }: { whatsappNumber?: st
         unit_price: i.salePrice ?? i.price,
       })),
       subtotal: totalPrice,
-      delivery_fee: delivery,
+      shippingFee: delivery,
+      discount: 0,
       total: orderTotal,
+      callbackUrl,
     });
-    setPlacing(false);
-    if (res.ok && res.orderNumber) {
-      // Also open WhatsApp so the customer can chat with the brand
-      window.open(orderWhatsappHref, "_blank");
+
+    if (res.ok) {
       clearCart();
-      setConfirmed(res.orderNumber);
-    } else {
-      setError(res.message);
+      window.location.href = res.authorizationUrl;
+      return;
     }
+    setError(res.message);
+    if (res.shortfalls) setShortfalls(res.shortfalls);
+    setPlacing(false);
   }
 
   return (
@@ -209,7 +182,7 @@ export default function CartPageClient({ whatsappNumber }: { whatsappNumber?: st
                 <span className="text-brand-brown">₦{totalPrice.toLocaleString()}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-brand-muted">Delivery</span>
+                <span className="text-brand-muted">Shipping</span>
                 <span className={delivery === 0 ? "text-brand-accent font-medium" : "text-brand-brown"}>
                   {delivery === 0 ? "FREE" : `₦${delivery.toLocaleString()}`}
                 </span>
@@ -234,39 +207,68 @@ export default function CartPageClient({ whatsappNumber }: { whatsappNumber?: st
                 className="w-full border border-brand-sand bg-white px-3 py-2.5 text-sm focus:outline-none focus:border-brand-primary text-brand-brown"
               />
               <input
+                type="email"
+                value={customer.email}
+                onChange={(e) => setCustomer((c) => ({ ...c, email: e.target.value }))}
+                placeholder="Email *"
+                className="w-full border border-brand-sand bg-white px-3 py-2.5 text-sm focus:outline-none focus:border-brand-primary text-brand-brown"
+              />
+              <input
                 value={customer.phone}
                 onChange={(e) => setCustomer((c) => ({ ...c, phone: e.target.value }))}
                 placeholder="WhatsApp / phone *"
                 className="w-full border border-brand-sand bg-white px-3 py-2.5 text-sm focus:outline-none focus:border-brand-primary text-brand-brown"
               />
-              <input
-                type="email"
-                value={customer.email}
-                onChange={(e) => setCustomer((c) => ({ ...c, email: e.target.value }))}
-                placeholder="Email (optional)"
-                className="w-full border border-brand-sand bg-white px-3 py-2.5 text-sm focus:outline-none focus:border-brand-primary text-brand-brown"
-              />
               <textarea
                 value={customer.address}
                 onChange={(e) => setCustomer((c) => ({ ...c, address: e.target.value }))}
-                placeholder="Delivery address (optional)"
+                placeholder="Delivery address *"
                 rows={2}
                 className="w-full border border-brand-sand bg-white px-3 py-2.5 text-sm focus:outline-none focus:border-brand-primary text-brand-brown resize-none"
               />
+              <div className="grid grid-cols-2 gap-3">
+                <input
+                  value={customer.city}
+                  onChange={(e) => setCustomer((c) => ({ ...c, city: e.target.value }))}
+                  placeholder="City *"
+                  className="w-full border border-brand-sand bg-white px-3 py-2.5 text-sm focus:outline-none focus:border-brand-primary text-brand-brown"
+                />
+                <select
+                  value={customer.state}
+                  onChange={(e) => setCustomer((c) => ({ ...c, state: e.target.value }))}
+                  className="w-full border border-brand-sand bg-white px-3 py-2.5 text-sm focus:outline-none focus:border-brand-primary text-brand-brown"
+                >
+                  <option value="">State *</option>
+                  {NIGERIAN_STATES.map((s) => (
+                    <option key={s} value={s}>{s}</option>
+                  ))}
+                </select>
+              </div>
             </div>
 
-            {error && <p className="text-red-500 text-xs mb-3">{error}</p>}
+            {error && (
+              <div className="mb-3">
+                <p className="text-red-500 text-xs">{error}</p>
+                {shortfalls && (
+                  <ul className="text-red-500 text-xs mt-1 list-disc list-inside">
+                    {shortfalls.map((s) => (
+                      <li key={s.product_name}>{s.product_name} — only {s.available} left in stock</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            )}
 
             <button
-              onClick={handlePlaceOrder}
+              onClick={handlePayWithPaystack}
               disabled={placing}
-              className="block w-full text-center btn-primary mb-3 disabled:opacity-60"
+              className="flex items-center justify-center gap-2 w-full text-center btn-primary mb-3 disabled:opacity-60"
             >
-              {placing ? "Placing Order..." : "Place Order ✓"}
+              <Lock size={14} /> {placing ? "Redirecting to Paystack..." : "Pay with Paystack"}
             </button>
 
             <p className="text-brand-muted text-xs text-center leading-relaxed mb-3">
-              Your full order details will be sent to our WhatsApp. We&apos;ll confirm and arrange payment within 24 hours.
+              You&apos;ll be redirected to Paystack&apos;s secure checkout to complete payment by card, bank transfer, or USSD.
             </p>
 
             <a
@@ -297,7 +299,7 @@ export default function CartPageClient({ whatsappNumber }: { whatsappNumber?: st
           {/* Trust badges */}
           <div className="mt-4 grid grid-cols-3 gap-2">
             {[
-              { icon: "🔒", label: "Secure Order" },
+              { icon: "🔒", label: "Secure Payment" },
               { icon: "↩️", label: "Easy Returns" },
               { icon: "🎁", label: "Gift Wrapping" },
             ].map((b) => (

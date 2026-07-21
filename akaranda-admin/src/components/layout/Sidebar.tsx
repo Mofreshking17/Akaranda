@@ -7,7 +7,7 @@ import { modulesForRole, type Module } from "@/lib/permissions";
 import { useSidebar } from "./SidebarContext";
 import {
   LayoutDashboard, ShoppingBag, ImageIcon, Package, Users, Shirt,
-  BookImage, Newspaper, MessageSquareQuote, Mail, FileText, Settings, UserCog, X,
+  BookImage, Newspaper, MessageSquareQuote, Mail, FileText, Settings, UserCog, X, CreditCard,
 } from "lucide-react";
 
 const NAV: { module: Module; label: string; href: string; icon: React.ComponentType<{ className?: string }> }[] = [
@@ -15,6 +15,7 @@ const NAV: { module: Module; label: string; href: string; icon: React.ComponentT
   { module: "products", label: "Products", href: "/products", icon: ShoppingBag },
   { module: "media", label: "Media Library", href: "/media", icon: ImageIcon },
   { module: "orders", label: "Orders", href: "/orders", icon: Package },
+  { module: "payments", label: "Payments", href: "/payments", icon: CreditCard },
   { module: "customers", label: "Customers", href: "/customers", icon: Users },
   { module: "wardrobe", label: "Wardrobe Services", href: "/wardrobe", icon: Shirt },
   { module: "lookbook", label: "Lookbook", href: "/lookbook", icon: BookImage },

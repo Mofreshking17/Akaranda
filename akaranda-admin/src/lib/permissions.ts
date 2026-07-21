@@ -5,6 +5,7 @@ export type Module =
   | "products"
   | "media"
   | "orders"
+  | "payments"
   | "customers"
   | "wardrobe"
   | "lookbook"
@@ -17,10 +18,10 @@ export type Module =
 
 const ROLE_MODULES: Record<AdminRole, Module[]> = {
   super_admin: [
-    "dashboard", "products", "media", "orders", "customers", "wardrobe",
+    "dashboard", "products", "media", "orders", "payments", "customers", "wardrobe",
     "lookbook", "blog", "testimonials", "newsletter", "content", "settings", "team",
   ],
-  admin: ["dashboard", "products", "media", "orders", "customers", "wardrobe"],
+  admin: ["dashboard", "products", "media", "orders", "payments", "customers", "wardrobe"],
   content_manager: ["dashboard", "media", "lookbook", "blog", "testimonials"],
 };
 

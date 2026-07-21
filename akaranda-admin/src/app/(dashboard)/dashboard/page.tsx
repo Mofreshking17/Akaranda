@@ -22,6 +22,7 @@ export default async function DashboardPage() {
     { data: orders },
     { data: products },
     { data: wardrobe },
+    { data: paidPayments },
   ] = await Promise.all([
     supabase.from("products").select("id", { count: "exact", head: true }),
     supabase.from("products").select("id", { count: "exact", head: true }).eq("status", "published"),
@@ -34,7 +35,10 @@ export default async function DashboardPage() {
     supabase.from("orders").select("created_at"),
     supabase.from("products").select("category_id, categories(name)"),
     supabase.from("wardrobe_requests").select("status"),
+    supabase.from("payments").select("amount").eq("status", "paid"),
   ]);
+
+  const totalRevenue = (paidPayments ?? []).reduce((sum, p) => sum + p.amount, 0);
 
   const monthMap = new Map<string, number>();
   (orders ?? []).forEach((o) => {
@@ -67,7 +71,7 @@ export default async function DashboardPage() {
           <StatCard label="Low Stock" value={lowStockProducts ?? 0} icon={<AlertTriangle />} hint="Under 5 units" />
           <StatCard label="Total Orders" value={totalOrders ?? 0} icon={<Receipt />} />
           <StatCard label="Pending Orders" value={pendingOrders ?? 0} icon={<Clock />} />
-          <StatCard label="Revenue" value="₦ —" icon={<Wallet />} hint="Connect payment provider" />
+          <StatCard label="Revenue" value={`₦${totalRevenue.toLocaleString()}`} icon={<Wallet />} hint="From verified Paystack payments" />
           <StatCard label="Newsletter Subscribers" value={subscribers ?? 0} icon={<Mail />} />
           <StatCard label="Wardrobe Requests" value={wardrobeRequests ?? 0} icon={<Shirt />} />
         </div>

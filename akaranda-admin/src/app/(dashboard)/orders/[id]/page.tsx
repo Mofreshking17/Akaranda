@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireModule } from "@/lib/guard";
 import { createClient } from "@/lib/supabase/server";
@@ -10,10 +11,11 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
   const { id } = await params;
   const supabase = await createClient();
 
-  const [{ data: order }, { data: items }, { data: history }] = await Promise.all([
+  const [{ data: order }, { data: items }, { data: history }, { data: payments }] = await Promise.all([
     supabase.from("orders").select("*").eq("id", id).single(),
     supabase.from("order_items").select("*").eq("order_id", id),
     supabase.from("order_status_history").select("*").eq("order_id", id).order("created_at", { ascending: false }),
+    supabase.from("payments").select("*").eq("order_id", id).order("created_at", { ascending: false }),
   ]);
 
   if (!order) notFound();
@@ -42,6 +44,9 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
             <div className="border-t border-neutral-200 mt-4 pt-4 space-y-1 text-sm">
               <div className="flex justify-between"><span className="text-neutral-500">Subtotal</span><span>{formatNaira(order.subtotal)}</span></div>
               <div className="flex justify-between"><span className="text-neutral-500">Delivery Fee</span><span>{formatNaira(order.delivery_fee)}</span></div>
+              {order.discount > 0 && (
+                <div className="flex justify-between"><span className="text-neutral-500">Discount</span><span>-{formatNaira(order.discount)}</span></div>
+              )}
               <div className="flex justify-between font-medium text-base pt-1"><span>Total</span><span>{formatNaira(order.total)}</span></div>
             </div>
           </section>
@@ -79,7 +84,18 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
 
           <section className="bg-white border border-neutral-200 rounded-lg p-4 md:p-6">
             <h3 className="font-medium text-neutral-900 mb-3">Payment</h3>
-            <p className="text-sm capitalize">{order.payment_status}</p>
+            <p className="text-sm capitalize mb-1">Status: {order.payment_status}</p>
+            {order.payment_method && <p className="text-sm capitalize text-neutral-500 mb-3">Method: {order.payment_method}</p>}
+            {(payments ?? []).length > 0 && (
+              <div className="space-y-2 pt-2 border-t border-neutral-100">
+                {(payments ?? []).map((p) => (
+                  <Link key={p.id} href={`/payments/${p.id}`} className="flex items-center justify-between text-xs hover:bg-neutral-50 -mx-2 px-2 py-1.5 rounded">
+                    <span className="font-mono text-neutral-500 truncate max-w-[140px]">{p.reference}</span>
+                    <span className="capitalize font-medium">{p.status}</span>
+                  </Link>
+                ))}
+              </div>
+            )}
           </section>
         </div>
       </div>

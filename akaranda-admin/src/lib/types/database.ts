@@ -1,8 +1,9 @@
 export type AdminRole = "super_admin" | "admin" | "content_manager";
 export type ProductStatus = "draft" | "published" | "archived";
 export type ProductCollection = "kids" | "chics" | "family" | "seasonal";
-export type OrderStatus = "pending" | "paid" | "processing" | "ready_for_delivery" | "delivered" | "cancelled";
+export type OrderStatus = "pending" | "paid" | "processing" | "ready_for_delivery" | "shipped" | "delivered" | "cancelled";
 export type PaymentStatus = "unpaid" | "pending" | "paid" | "refunded" | "failed";
+export type PaymentGateway = "paystack" | "flutterwave" | "stripe" | "moniepoint";
 export type WardrobeType = "kiddies" | "chics";
 export type WardrobeStatus = "new_request" | "in_review" | "styling" | "ready" | "delivered";
 export type BlogStatus = "draft" | "scheduled" | "published";
@@ -103,10 +104,33 @@ export interface Order {
   delivery_address: string | null;
   subtotal: number;
   delivery_fee: number;
+  discount: number;
   total: number;
   status: OrderStatus;
   payment_status: PaymentStatus;
+  payment_method: string | null;
+  paystack_reference: string | null;
   notes: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Payment {
+  id: string;
+  order_id: string;
+  customer_id: string | null;
+  gateway: PaymentGateway;
+  reference: string;
+  transaction_id: string | null;
+  amount: number;
+  currency: string;
+  status: PaymentStatus;
+  payment_method: string | null;
+  authorization: Record<string, unknown> | null;
+  gateway_response: string | null;
+  paid_at: string | null;
+  refunded_at: string | null;
+  refund_reason: string | null;
   created_at: string;
   updated_at: string;
 }

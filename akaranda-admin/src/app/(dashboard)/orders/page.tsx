@@ -12,6 +12,7 @@ const STATUS_VARIANT: Record<OrderStatus, "default" | "secondary" | "outline" | 
   paid: "default",
   processing: "default",
   ready_for_delivery: "default",
+  shipped: "default",
   delivered: "outline",
   cancelled: "destructive",
 };

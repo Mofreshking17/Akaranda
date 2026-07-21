@@ -9,7 +9,7 @@ import {
 import type { OrderStatus } from "@/lib/types/database";
 import { updateOrderStatus } from "@/app/(dashboard)/orders/actions";
 
-const STATUSES: OrderStatus[] = ["pending", "paid", "processing", "ready_for_delivery", "delivered", "cancelled"];
+const STATUSES: OrderStatus[] = ["pending", "paid", "processing", "ready_for_delivery", "shipped", "delivered", "cancelled"];
 
 export default function OrderStatusSelect({ orderId, status }: { orderId: string; status: OrderStatus }) {
   const router = useRouter();
